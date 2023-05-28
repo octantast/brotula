@@ -1,0 +1,181 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class biomfish : MonoBehaviour
+{
+    public EnemySpawnerB1 enemyspawn;
+
+    public float timer;
+    public bool otschot;
+    public bool pobeg;
+
+    Rigidbody2D rb; // вся рыба
+    Rigidbody2D rbarmzad; // челюсть верхняя
+    Rigidbody2D rbarmpered; // челюсть нижняя
+    Rigidbody2D rblegpered; // плавник
+
+    [SerializeField] private GameObject armzad;
+    [SerializeField] private GameObject armpered;
+    [SerializeField] private GameObject legpered;
+
+    [SerializeField] private Vector3 scaleChange; // мощность изменений размера
+    [SerializeField] private Vector3 sizeNormie; // размер
+    [SerializeField] private float kolebanie;
+    [SerializeField] private float elozit;
+    [SerializeField] private float telesa;
+    [SerializeField] private bool ziklnogi;
+    [SerializeField] private bool ziklruki;
+    [SerializeField] private bool ziklbashki;
+    [SerializeField] private bool zikltela;
+    [SerializeField] private bool randommove;
+    [SerializeField] private float randomtime;
+    [SerializeField] private float randomtimeset;
+
+    public bool proglotila;
+    public float timerproglota;
+
+    public bool pobegushki;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        timerproglota = 2.5f;
+        timer = 15f;
+        sizeNormie = new Vector3(1f, 1f, 0f); // нормальный размер
+
+        armzad = transform.GetChild(2).gameObject;
+        armpered = transform.GetChild(1).gameObject;
+        legpered = transform.GetChild(0).gameObject;
+
+        rb = GetComponent<Rigidbody2D>(); // всё тело
+        rbarmzad = armzad.GetComponent<Rigidbody2D>();
+        rbarmpered = armpered.GetComponent<Rigidbody2D>();
+        rblegpered = legpered.GetComponent<Rigidbody2D>();
+        scaleChange = new Vector3(0.01f, 0.01f, 0f);
+        kolebanie = 0f;
+        elozit = 1f;
+        randomtime = Random.Range(10f, 30f);
+        randomtimeset = randomtime;
+        transform.localPosition = new Vector3(0f, 0f, 0f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // плавник
+        if (kolebanie < 3.1f && ziklnogi == false)
+        {
+            kolebanie += Time.deltaTime * 0.5f;
+        }
+        else
+        {
+            ziklnogi = true;
+        }
+        if (kolebanie > -3.1f && ziklnogi)
+        {
+
+            kolebanie -= Time.deltaTime * 0.5f;
+        }
+        else
+        {
+            ziklnogi = false;
+        }
+        legpered.transform.localEulerAngles = new Vector3(0f, 0f, kolebanie * -0.5f);
+
+        // челюсть
+        if (randommove == false)
+        {
+            if (elozit < 2f && ziklruki == false)
+            {
+                elozit += Time.deltaTime;
+            }
+            else
+            {
+                ziklruki = true;
+            }
+            if (elozit > -2.8f && ziklruki)
+            {
+
+                elozit -= Time.deltaTime;
+            }
+            else
+            {
+                ziklruki = false;
+            }
+
+            armzad.transform.localEulerAngles = new Vector3(0f, 0f, elozit * -0.8f);
+            armpered.transform.localEulerAngles = new Vector3(0f, 0f, elozit);
+        }
+
+        // движение вверх 2 секунды
+        if(proglotila && timerproglota > 0)
+        {
+            timerproglota -= Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + 10f, transform.position.z), 10f * Time.deltaTime);
+        }
+
+
+        if (otschot && timer > 0) // если есть взм убежать, время отсчитывается
+        {
+            timer -= Time.deltaTime;
+        }
+        else if (otschot && timer <= 0) // побег состоится
+        {
+            pobeg = true;
+            otschot = false;
+            enemyspawn.fishbiom = false;
+        }
+
+        if (pobeg) // сам побег
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y - 10f, transform.position.z), 20f * Time.deltaTime);
+            if(pobegushki == false)
+            {
+                pobegushki = true;
+                enemyspawn.fishpossibility = -5;
+                enemyspawn.spawned15 = false; // респавн на место рыбы
+                enemyspawn.spawned16 = false;
+                enemyspawn.spawned17 = false;
+            }
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        // если игрок видит рыбу и стоит в коллайдере, идёт отсчет
+        if (other.CompareTag("Player"))
+        {
+            otschot = true;
+        }
+        // если отсчет закончен, и игрок все еще в колллайдере, рыба отступает
+
+        if (other.CompareTag("Merman"))
+        {
+            //DestroyObject(gameObject);
+
+            gameObject.SetActive(false);
+            //enemyspawn.fishpossibility = -5;
+           // enemyspawn.spawned15 = false; // респавн на место рыбы
+           // enemyspawn.spawned16 = false;
+            //enemyspawn.spawned17 = false;
+        }
+
+    }
+
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        // если игрок покинул коллайдер до того, как отсчет закончился, то отсчет прекратится, рыба идет в атаку, последний враг спавнится
+        if (other.CompareTag("Player") && otschot && timer > 0)
+        {
+            otschot = false;
+            proglotila = true;
+            enemyspawn.fishpossibility = -5;
+            enemyspawn.spawned16 = false;
+            enemyspawn.spawned17 = false;
+        }
+
+    }
+
+}
