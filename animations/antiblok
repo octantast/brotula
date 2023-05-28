@@ -1,0 +1,73 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class antiblok : MonoBehaviour
+{
+    public Levels leveler;
+    public battleplayer playingmode;
+    private float lerp;
+    [SerializeField] private Vector3 scaleChange;
+    private Vector3 sizeNormie;
+
+    public Image thisimage;
+    
+
+    void Start()
+    {
+        sizeNormie = new Vector3(1.2f, 1.2f, 0f);
+        scaleChange = new Vector3(0.1f, 0.1f, 0f);
+        thisimage = GetComponent<Image>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (leveler.animateo == 1)
+        {
+            lerp = Mathf.PingPong(Time.time, 4f) / 4f;
+
+            if (transform.localScale.x < 1f)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, sizeNormie, 0.1f);
+                if (thisimage.color != playingmode.whitetranspcolor)
+                {
+                    thisimage.color = Color.Lerp(playingmode.whitetranspcolor, thisimage.color, lerp);
+                }
+            }
+
+            if (transform.localScale.x >= 1f)
+            {
+                if (thisimage.color != playingmode.transpcolor)
+                {
+                    thisimage.color = Color.Lerp(playingmode.transpcolor, thisimage.color, lerp);
+                }
+            }
+        }
+
+
+
+        else if (leveler.animateo == 2)
+        {
+            lerp = Mathf.PingPong(Time.time, 3f) / 3f;
+
+            if (transform.localScale.x < 1f)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, sizeNormie, 0.25f);
+                if (thisimage.color != playingmode.whitetranspcolor)
+                {
+                    thisimage.color = Color.Lerp(playingmode.whitetranspcolor, thisimage.color, lerp);
+                }
+            }
+
+            if (transform.localScale.x >= 1f)
+            {
+                if (thisimage.color != playingmode.transpcolor)
+                {
+                    thisimage.color = Color.Lerp(playingmode.transpcolor, thisimage.color, lerp);
+                }
+            }
+        }
+    }
+}
