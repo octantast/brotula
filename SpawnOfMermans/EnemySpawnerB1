@@ -1,0 +1,1121 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemySpawnerB1 : MonoBehaviour
+{
+
+    public GenController gens;
+    [SerializeField]
+    private Vector3 spawnPosition;
+    private int randomPossibility;
+
+    // Все мермены по именам
+    public GameObject fish;
+    public GameObject biom5;
+    public float fishpossibility;
+    public GameObject Aliss;
+    public GameObject Asce;
+    public GameObject Abbet;
+    public GameObject Babil;
+    public GameObject Batiz;
+    public GameObject Bent;
+    public GameObject Cellisee;
+    public GameObject Cirrat;
+    public GameObject Demos;
+    public GameObject Echin;
+    public GameObject Ekhir;
+    public GameObject Galan;
+    public GameObject Golor;
+    public GameObject Gren;
+    public GameObject Hadee;
+    public GameObject Heeth;
+    public GameObject Hio;
+    public GameObject Khirond;
+    public GameObject Koryph;
+    public GameObject Kridei;
+    public GameObject Lat;
+    public GameObject Lihet;
+    public GameObject Marius;
+    public GameObject Mikt;
+    public GameObject Nemin;
+    public GameObject Nerrelid;
+    public GameObject Nophor;
+    public GameObject Pareed;
+    public GameObject Paster;
+    public GameObject Phanos;
+    public GameObject Pharn;
+    public GameObject Phiu;
+    public GameObject Phobel;
+    public GameObject Plog;
+    public GameObject Popmp;
+    public GameObject Prokt;
+    public GameObject Rago;
+    public GameObject Roid;
+    public GameObject Sactin;
+    public GameObject Sciph;
+    public GameObject Sothet;
+    public GameObject Thanaid;
+    public GameObject Themum;
+    public GameObject Theus;
+    public GameObject Tkhar;
+    public GameObject Topel;
+    public GameObject Typhlon;
+    public GameObject Zem;
+
+    // Все мермены по булам
+    public bool dot1 = false;
+    public bool dot2 = false;
+    public bool dot3 = false;
+
+    public bool fishbiom;
+    public bool bAliss = false;
+    public bool bAsce = false;
+    public bool bAbbet = false;
+    public bool bBabil = false;
+    public bool bBatiz = false;
+    public bool bBent = false;
+    public bool bCellisee = false;
+    public bool bCirrat = false;
+    public bool bDemos = false;
+    public bool bEchin = false;
+    public bool bEkhir = false;
+    public bool bGalan = false;
+    public bool bGolor = false;
+    public bool bGren = false;
+    public bool bHadee = false;
+    public bool bHeeth = false;
+    public bool bHio = false;
+    public bool bKhirond = false;
+    public bool bKoryph = false;
+    public bool bKridei = false;
+    public bool bLat = false;
+    public bool bLihet = false;
+    public bool bMarius = false;
+    public bool bMikt = false;
+    public bool bNemin = false;
+    public bool bNerrelid = false;
+    public bool bNophor = false;
+    public bool bPareed = false;
+    public bool bPaster = false;
+    public bool bPhanos = false;
+    public bool bPharn = false;
+    public bool bPhiu = false;
+    public bool bPhobel = false;
+    public bool bPlog = false;
+    public bool bPopmp = false;
+    public bool bProkt = false;
+    public bool bRago = false;
+    public bool bRoid = false;
+    public bool bSactin = false;
+    public bool bSciph = false;
+    public bool bSothet = false;
+    public bool bThanaid = false;
+    public bool bThemum = false;
+    public bool bTheus = false;
+    public bool bTkhar = false;
+    public bool bTopel = false;
+    public bool bTyphlon = false;
+    public bool bZem = false;
+
+    // Проверки на спавн каждого объекта 1 раз
+    public bool spawned1 = true;
+    public bool spawned2 = true;
+    public bool spawned3 = true;
+    public bool spawned4 = true;
+    public bool spawned5 = true;
+    public bool spawned6 = true;
+    public bool spawned7 = true;
+    public bool spawned8 = true;
+    public bool spawned9 = true;
+    public bool spawned10 = true;
+    public bool spawned11 = true;
+    public bool spawned12 = true;
+    public bool spawned13 = true;
+    public bool spawned14 = true;
+    public bool spawned15 = true;
+    public bool spawned16 = true;
+    public bool spawned17 = true;
+    private bool spawnedonce = false;
+
+    public GameObject enemyholder;
+    public DistanceToCheckpoint distancePoints;
+
+    public void Start()
+    {
+        fishpossibility = Random.Range(0, 10);
+    }
+
+    void Update()
+    {
+        // не спавнит, пока катка не началась
+        if(distancePoints.distance >= 5050 && spawnedonce == false)
+        {
+            spawnedonce = true;
+            spawned1 = false;
+            spawned2 = false;
+            spawned3 = false;
+            spawned4 = false;
+            spawned5 = false;
+            spawned6 = false;
+        }
+        // 5100-5300
+        if (spawned1 == false)
+        {
+            randomPossibility = Random.Range(1, 100);
+            spawnPosition = new Vector3(13.4f, -170f, -788f);
+
+            if (randomPossibility > 0 && randomPossibility <= 6) { Instantiate(Kridei, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 6 && randomPossibility <= 12) { Instantiate(Batiz, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 12 && randomPossibility <= 18) { Instantiate(Cirrat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 18 && randomPossibility <= 24) { Instantiate(Plog, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 24 && randomPossibility <= 30) { Instantiate(Pharn, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 30 && randomPossibility <= 35) { Instantiate(Typhlon, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 35 && randomPossibility <= 40) { Instantiate(Bent, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 40 && randomPossibility <= 45) { Instantiate(Aliss, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 45 && randomPossibility <= 50) { Instantiate(Abbet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 50 && randomPossibility <= 55) { Instantiate(Phobel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 55 && randomPossibility <= 59) { Instantiate(Lihet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 59 && randomPossibility <= 61) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 61 && randomPossibility <= 63) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 63 && randomPossibility <= 65) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 65 && randomPossibility <= 67) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 67 && randomPossibility <= 69) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 69 && randomPossibility <= 71) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 73) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 73 && randomPossibility <= 75) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 75 && randomPossibility <= 77) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 79 || randomPossibility == 78 || randomPossibility == 80 || randomPossibility == 81) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 82) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 83) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 84) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 85) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91 || randomPossibility == 92) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+
+            spawned1 = true;
+        }
+
+
+
+        // 5300-5600
+        if (spawned2 == false && spawned1)
+        {
+            randomPossibility = Random.Range(1, 100);
+            spawnPosition = new Vector3(13.4f, Random.Range(-200f, -190f), -788f);
+            if (randomPossibility > 0 && randomPossibility <= 6) { Instantiate(Kridei, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 6 && randomPossibility <= 12) { Instantiate(Batiz, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 12 && randomPossibility <= 18) { Instantiate(Cirrat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 18 && randomPossibility <= 24) { Instantiate(Plog, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 24 && randomPossibility <= 30) { Instantiate(Pharn, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 30 && randomPossibility <= 35) { Instantiate(Typhlon, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 35 && randomPossibility <= 40) { Instantiate(Bent, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 40 && randomPossibility <= 45) { Instantiate(Aliss, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 45 && randomPossibility <= 50) { Instantiate(Abbet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 50 && randomPossibility <= 55) { Instantiate(Phobel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 55 && randomPossibility <= 57) { Instantiate(Lihet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 57 && randomPossibility <= 59) { Instantiate(Popmp, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 59 && randomPossibility <= 61) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 61 && randomPossibility <= 63) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 63 && randomPossibility <= 65) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 65 && randomPossibility <= 67) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 67 && randomPossibility <= 69) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 69 && randomPossibility <= 71) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 73) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 73 && randomPossibility <= 75) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 75 && randomPossibility <= 77) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 78 || randomPossibility == 79) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 80) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 81) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 82) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 83) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 84) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 85) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+
+            spawned2 = true;
+        }
+
+
+
+        // 5600-6000
+        if (spawned3 == false && spawned2)
+        {
+            randomPossibility = Random.Range(1, 110);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+            }
+
+            spawnPosition = new Vector3(13.4f, Random.Range(-240f, -230f), -788f);
+
+
+            if (randomPossibility == 1) { Instantiate(Kridei, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Batiz, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Cirrat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Plog, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Pharn, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 5 && randomPossibility <= 7) { Instantiate(Typhlon, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 7 && randomPossibility <= 9) { Instantiate(Bent, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 9 && randomPossibility <= 11) { Instantiate(Aliss, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 11 && randomPossibility <= 16) { Instantiate(Abbet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 16 && randomPossibility <= 23) { Instantiate(Phobel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 23 && randomPossibility <= 31) { Instantiate(Lihet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 39) { Instantiate(Popmp, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 39 && randomPossibility <= 47) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 47 && randomPossibility <= 54) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 54 && randomPossibility <= 59) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 59 && randomPossibility <= 63) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 63 && randomPossibility <= 66) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 68) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 68 && randomPossibility <= 70) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 70 && randomPossibility <= 72) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 72 && randomPossibility <= 74) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 74 && randomPossibility <= 76) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 76 && randomPossibility <= 78) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 80) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 81) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 82) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 83) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 84) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 85) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+
+            
+            spawned3 = true;
+        }
+
+        // 6000-6300, точка нового биома, спавн обязательно
+        if (spawned4 == false && spawned3)
+        {
+            randomPossibility = Random.Range(1, 100);
+            spawnPosition = new Vector3(13.4f, Random.Range(-265f, -250f), -788f);
+            if (randomPossibility == 1) { Instantiate(Kridei, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Batiz, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Cirrat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Plog, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Pharn, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 5 && randomPossibility <= 7) { Instantiate(Typhlon, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 7 && randomPossibility <= 9) { Instantiate(Bent, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 9 && randomPossibility <= 11) { Instantiate(Aliss, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 11 && randomPossibility <= 16) { Instantiate(Abbet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 16 && randomPossibility <= 23) { Instantiate(Phobel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 23 && randomPossibility <= 31) { Instantiate(Lihet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 39) { Instantiate(Popmp, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 39 && randomPossibility <= 47) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 47 && randomPossibility <= 54) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 54 && randomPossibility <= 59) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 59 && randomPossibility <= 63) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 63 && randomPossibility <= 66) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 68) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 68 && randomPossibility <= 70) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 70 && randomPossibility <= 72) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 72 && randomPossibility <= 74) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 74 && randomPossibility <= 76) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 76 && randomPossibility <= 78) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 80) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 81) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 82) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 83) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 84) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 85) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            spawned4 = true;
+        }
+
+        // 6300-6650
+        if (spawned5 == false && spawned4)
+        {
+            randomPossibility = Random.Range(1, 105);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-290f, -270f), -788f);
+            if (randomPossibility == 1) { Instantiate(Kridei, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Batiz, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Cirrat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Plog, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Pharn, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 5 && randomPossibility <= 7) { Instantiate(Typhlon, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 7 && randomPossibility <= 9) { Instantiate(Bent, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 9 && randomPossibility <= 11) { Instantiate(Aliss, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 11 && randomPossibility <= 16) { Instantiate(Abbet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 16 && randomPossibility <= 23) { Instantiate(Phobel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 23 && randomPossibility <= 31) { Instantiate(Lihet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 39) { Instantiate(Popmp, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 39 && randomPossibility <= 47) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 47 && randomPossibility <= 54) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 54 && randomPossibility <= 59) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 59 && randomPossibility <= 63) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 63 && randomPossibility <= 66) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 68) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 68 && randomPossibility <= 70) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 70 && randomPossibility <= 72) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 72 && randomPossibility <= 74) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 74 && randomPossibility <= 76) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 76 && randomPossibility <= 78) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 80) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 81) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 82) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 83) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 84) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 85) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+
+            randomPossibility = Random.Range(1, 100);
+            spawnPosition = new Vector3(13.4f, Random.Range(-350f, -320f), -788f);
+            if (randomPossibility == 1) { Instantiate(Kridei, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Batiz, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Cirrat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Plog, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Pharn, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 5 && randomPossibility <= 7) { Instantiate(Typhlon, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 7 && randomPossibility <= 9) { Instantiate(Bent, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 9 && randomPossibility <= 11) { Instantiate(Aliss, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 11 && randomPossibility <= 16) { Instantiate(Abbet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 16 && randomPossibility <= 23) { Instantiate(Phobel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 23 && randomPossibility <= 31) { Instantiate(Lihet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 39) { Instantiate(Popmp, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 39 && randomPossibility <= 47) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 47 && randomPossibility <= 54) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 54 && randomPossibility <= 59) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 59 && randomPossibility <= 63) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 63 && randomPossibility <= 66) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 68) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 68 && randomPossibility <= 70) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 70 && randomPossibility <= 72) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 72 && randomPossibility <= 74) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 74 && randomPossibility <= 76) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 76 && randomPossibility <= 78) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 80) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 81) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 82) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 83) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 84) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 85) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+
+
+
+            spawned5 = true;
+        }
+
+
+        // до этого момента всё ок
+
+
+
+
+
+        // 6650-7000
+        if (spawned6 == false && spawned5)
+        {
+            randomPossibility = Random.Range(1, 115);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 115);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 115);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-440f, -410f), -788f);
+            if (randomPossibility == 1) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 1 && randomPossibility <= 6) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 6 && randomPossibility <= 11) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 11 && randomPossibility <= 16) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 16 && randomPossibility <= 21) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 21 && randomPossibility <= 26) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 26 && randomPossibility <= 31) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 36) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 41) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 41 && randomPossibility <= 46) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 46 && randomPossibility <= 51) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 51 && randomPossibility <= 56) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 56 && randomPossibility <= 61) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 61 && randomPossibility <= 66) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 71) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 76) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 76 && randomPossibility <= 81) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 81 && randomPossibility <= 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            spawned6 = true;
+        }
+
+        // 7000-7500
+        if (spawned7 == false && spawned6)
+        {
+            randomPossibility = Random.Range(1, 115);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 115);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 115);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-490f, -460f), -788f);
+            if (randomPossibility == 1) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 1 && randomPossibility <= 6) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 6 && randomPossibility <= 11) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 11 && randomPossibility <= 16) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 16 && randomPossibility <= 21) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 21 && randomPossibility <= 26) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 26 && randomPossibility <= 31) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 36) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 41) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 41 && randomPossibility <= 46) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 46 && randomPossibility <= 51) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 51 && randomPossibility <= 56) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 56 && randomPossibility <= 61) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 61 && randomPossibility <= 66) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 71) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 76) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 76 && randomPossibility <= 81) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 81 && randomPossibility <= 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            spawned7 = true;
+        }
+
+        // 7500-8000
+        if (spawned8 == false && spawned7)
+        {
+            randomPossibility = Random.Range(1, 115);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 115);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 115);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-520f, -510f), -788f);
+            if (randomPossibility == 1) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 1 && randomPossibility <= 6) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 6 && randomPossibility <= 11) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 11 && randomPossibility <= 16) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 16 && randomPossibility <= 21) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 21 && randomPossibility <= 26) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 26 && randomPossibility <= 31) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 36) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 41) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 41 && randomPossibility <= 46) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 46 && randomPossibility <= 51) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 51 && randomPossibility <= 56) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 56 && randomPossibility <= 61) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 61 && randomPossibility <= 66) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 71) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 76) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 76 && randomPossibility <= 81) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 81 && randomPossibility <= 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            spawned8 = true;
+        }
+
+
+
+
+        // 8000-8470
+        if (spawned9 == false && spawned8)
+        {
+            randomPossibility = Random.Range(1, 115);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 115);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 115);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-590f, -580f), -788f);
+            if (randomPossibility == 1) { Instantiate(Topel, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 1 && randomPossibility <= 6) { Instantiate(Babil, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 6 && randomPossibility <= 11) { Instantiate(Heeth, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 11 && randomPossibility <= 16) { Instantiate(Sothet, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 16 && randomPossibility <= 21) { Instantiate(Echin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 21 && randomPossibility <= 26) { Instantiate(Phanos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 26 && randomPossibility <= 31) { Instantiate(Gren, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 36) { Instantiate(Mikt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 41) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 41 && randomPossibility <= 46) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 46 && randomPossibility <= 51) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 51 && randomPossibility <= 56) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 56 && randomPossibility <= 61) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 61 && randomPossibility <= 66) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 71) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 76) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 76 && randomPossibility <= 81) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 81 && randomPossibility <= 86) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 87) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 88) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 89) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 90) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 91) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 92) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 93) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 94) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 95) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 96) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 97) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 98) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 99) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            spawned9 = true;
+        }
+
+
+
+
+        // 8470-9000
+        if (spawned10 == false && spawned9)
+        {
+            randomPossibility = Random.Range(1, 100);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-650f, -640f), -788f);
+            if (randomPossibility == 1) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 6) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 7) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 8) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 8 && randomPossibility <= 15) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 15 && randomPossibility <= 22) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 22 && randomPossibility <= 29) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 29 && randomPossibility <= 36) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 43) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 43 && randomPossibility <= 50) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 50 && randomPossibility <= 57) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 57 && randomPossibility <= 64) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 64 && randomPossibility <= 71) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 78) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 85) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 85 && randomPossibility <= 88) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 88 && randomPossibility <= 91) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 91 && randomPossibility <= 94) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 94 && randomPossibility <= 97) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 97 && randomPossibility <= 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            spawned10 = true;
+        }
+
+        // 9000-9500
+        if (spawned11 == false && spawned10)
+        {
+            randomPossibility = Random.Range(1, 105);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-730f, -720f), -788f);
+            if (randomPossibility == 1) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 6) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 7) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 8) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 8 && randomPossibility <= 15) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 15 && randomPossibility <= 22) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 22 && randomPossibility <= 29) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 29 && randomPossibility <= 36) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 43) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 43 && randomPossibility <= 50) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 50 && randomPossibility <= 57) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 57 && randomPossibility <= 64) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 64 && randomPossibility <= 71) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 78) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 85) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 85 && randomPossibility <= 88) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 88 && randomPossibility <= 91) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 91 && randomPossibility <= 94) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 94 && randomPossibility <= 97) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 97 && randomPossibility <= 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            spawned11 = true;
+        }
+
+        // 9500-10000
+        if (spawned12 == false && spawned11)
+        {
+            randomPossibility = Random.Range(1, 110);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-790f, -750f), -788f);
+            if (randomPossibility == 1) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 6) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 7) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 8) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 8 && randomPossibility <= 15) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 15 && randomPossibility <= 22) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 22 && randomPossibility <= 29) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 29 && randomPossibility <= 36) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 43) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 43 && randomPossibility <= 50) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 50 && randomPossibility <= 57) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 57 && randomPossibility <= 64) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 64 && randomPossibility <= 71) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 78) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 85) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 85 && randomPossibility <= 88) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 88 && randomPossibility <= 91) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 91 && randomPossibility <= 94) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 94 && randomPossibility <= 97) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 97 && randomPossibility <= 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+
+            randomPossibility = Random.Range(1, 100);
+            spawnPosition = new Vector3(13.4f, Random.Range(-820f, -810f), -788f);
+            if (randomPossibility == 1) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 6) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 7) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 8) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 8 && randomPossibility <= 15) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 15 && randomPossibility <= 22) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 22 && randomPossibility <= 29) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 29 && randomPossibility <= 36) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 43) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 43 && randomPossibility <= 50) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 50 && randomPossibility <= 57) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 57 && randomPossibility <= 64) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 64 && randomPossibility <= 71) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 78) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 85) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 85 && randomPossibility <= 88) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 88 && randomPossibility <= 91) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 91 && randomPossibility <= 94) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 94 && randomPossibility <= 97) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 97 && randomPossibility <= 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+
+
+            spawned12 = true;
+        }
+
+        // 10000-10500
+        if (spawned13 == false && spawned12)
+        {
+            randomPossibility = Random.Range(1, 110);
+            if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+            {
+                if (randomPossibility > 100)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+                if (randomPossibility > 100 && gens.pEcholocatia == 3)
+                {
+                    randomPossibility = Random.Range(1, 110);
+                }
+            }
+            spawnPosition = new Vector3(13.4f, Random.Range(-950f, -880f), -788f);
+            if (randomPossibility == 1) { Instantiate(Nophor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Theus, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Asce, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Rago, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Phiu, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 6) { Instantiate(Prokt, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 7) { Instantiate(Pareed, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 8) { Instantiate(Hio, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 8 && randomPossibility <= 15) { Instantiate(Lat, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 15 && randomPossibility <= 22) { Instantiate(Cellisee, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 22 && randomPossibility <= 29) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 29 && randomPossibility <= 36) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 36 && randomPossibility <= 43) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 43 && randomPossibility <= 50) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 50 && randomPossibility <= 57) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 57 && randomPossibility <= 64) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 64 && randomPossibility <= 71) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 71 && randomPossibility <= 78) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 78 && randomPossibility <= 85) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 85 && randomPossibility <= 88) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 88 && randomPossibility <= 91) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 91 && randomPossibility <= 94) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 94 && randomPossibility <= 97) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 97 && randomPossibility <= 100) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            randomPossibility = Random.Range(1, 100);
+            spawnPosition = new Vector3(13.4f, Random.Range(-1030f, -970f), -788f);
+            if (randomPossibility == 1) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 2) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 3) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 4) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 5) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility == 6) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 6 && randomPossibility <= 8) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 8 && randomPossibility <= 10) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 12 && randomPossibility <= 14) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 14 && randomPossibility <= 31) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 31 && randomPossibility <= 48) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 48 && randomPossibility <= 66) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 66 && randomPossibility <= 84) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            else if (randomPossibility > 84 && randomPossibility <= 102) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+
+            spawned13 = true;
+        }
+
+
+
+
+
+        // 10500-11000
+        if (spawned14 == false && spawned13)
+        {
+            // здесь может заспавниться рыба вместо одного мермена
+            //10500-11150 метров, 
+            if (fishpossibility > 5)
+            {
+                // Instantiate(fish, new Vector3(0f, 0f, 0f), Quaternion.identity, biom5.transform); }
+                fish.SetActive(true);
+                fish.transform.localPosition = new Vector3(0f, 0f, 0f);
+            }
+            else
+            {
+                randomPossibility = Random.Range(1, 115);
+                if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+                {
+                    if (randomPossibility > 102)
+                    {
+                        randomPossibility = Random.Range(1, 115);
+                    }
+                    if (randomPossibility > 102 && gens.pEcholocatia == 3)
+                    {
+                        randomPossibility = Random.Range(1, 115);
+                    }
+                }
+                spawnPosition = new Vector3(13.4f, Random.Range(-1070f, -1060f), -788f);
+                if (randomPossibility == 1) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 2) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 3) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 4) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 5) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 6) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 6 && randomPossibility <= 8) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 8 && randomPossibility <= 10) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 12 && randomPossibility <= 14) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 14 && randomPossibility <= 31) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 31 && randomPossibility <= 48) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 48 && randomPossibility <= 66) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 66 && randomPossibility <= 84) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 84 && randomPossibility <= 102) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            }
+            spawned14 = true;
+        }
+        
+        // 11000-11500
+        if (spawned15 == false && spawned14)
+        {
+            if (fishpossibility <= 5)
+            {
+                if (fishpossibility == -5)
+                {
+                    randomPossibility = Random.Range(1, 100);
+                    spawnPosition = new Vector3(13.4f, Random.Range(-1140f, -1100f), -788f);
+                }
+                else // что это?
+                {
+                    spawnPosition = new Vector3(13.4f, Random.Range(-1140f, -1100f), -788f);
+                    randomPossibility = Random.Range(1, 115);
+                }
+                if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+                {
+                    if (randomPossibility > 102)
+                    {
+                        randomPossibility = Random.Range(1, 115);
+                    }
+                    if (randomPossibility > 102 && gens.pEcholocatia == 3)
+                    {
+                        randomPossibility = Random.Range(1, 115);
+                    }
+                }
+
+
+                if (randomPossibility == 1) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 2) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 3) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 4) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 5) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 6) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 6 && randomPossibility <= 8) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 8 && randomPossibility <= 10) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 12 && randomPossibility <= 14) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 14 && randomPossibility <= 31) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 31 && randomPossibility <= 48) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 48 && randomPossibility <= 66) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 66 && randomPossibility <= 84) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 84 && randomPossibility <= 102) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            }
+            spawned15 = true;
+        }
+
+        // 11500-12000
+        if (spawned16 == false && spawned15)
+        {
+            if (fishpossibility <= 5)
+            {
+                if (fishpossibility == -5)
+                {
+                    randomPossibility = Random.Range(1, 100);
+                    spawnPosition = new Vector3(13.4f, Random.Range(-1170f, -1160f), -788f);
+                }
+                else // что это?
+                {
+                    spawnPosition = new Vector3(13.4f, Random.Range(-1170f, -1160f), -788f);
+                    randomPossibility = Random.Range(1, 115);
+                }
+
+                if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+                {
+                    if (randomPossibility > 102)
+                    {
+                        randomPossibility = Random.Range(1, 115);
+                    }
+                    if (randomPossibility > 102 && gens.pEcholocatia == 3)
+                    {
+                        randomPossibility = Random.Range(1, 115);
+                    }
+                }
+
+                if (randomPossibility == 1) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 2) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 3) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 4) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 5) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 6) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 6 && randomPossibility <= 8) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 8 && randomPossibility <= 10) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 12 && randomPossibility <= 14) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 14 && randomPossibility <= 31) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 31 && randomPossibility <= 48) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 48 && randomPossibility <= 66) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 66 && randomPossibility <= 84) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 84 && randomPossibility <= 102) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            }
+            spawned16 = true;
+        }
+
+        // 12000 - 12500
+        if (spawned17 == false && spawned16)
+        {
+            if (fishpossibility <= 5)
+            {
+                if (fishpossibility == -5)
+                {
+                    randomPossibility = Random.Range(1, 100);
+                    spawnPosition = new Vector3(13.4f, Random.Range(-1250f, -1240f), -788f);
+                }
+                else // что это?
+                {
+                    spawnPosition = new Vector3(13.4f, Random.Range(-1250f, -1240f), -788f);
+                    randomPossibility = Random.Range(1, 115);
+                }
+
+                if (gens.pEcholocatia >= 2 && gens.pLipid < 2)
+                {
+                    if (randomPossibility > 102)
+                    {
+                        randomPossibility = Random.Range(1, 115);
+                    }
+                    if (randomPossibility > 102 && gens.pEcholocatia == 3)
+                    {
+                        randomPossibility = Random.Range(1, 115);
+                    }
+                }
+                if (randomPossibility == 1) { Instantiate(Paster, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 2) { Instantiate(Sciph, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 3) { Instantiate(Sactin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 4) { Instantiate(Zem, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 5) { Instantiate(Thanaid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility == 6) { Instantiate(Nemin, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 6 && randomPossibility <= 8) { Instantiate(Ekhir, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 8 && randomPossibility <= 10) { Instantiate(Tkhar, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 12 && randomPossibility <= 14) { Instantiate(Galan, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 14 && randomPossibility <= 31) { Instantiate(Demos, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 31 && randomPossibility <= 48) { Instantiate(Nerrelid, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 48 && randomPossibility <= 66) { Instantiate(Khirond, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 66 && randomPossibility <= 84) { Instantiate(Golor, spawnPosition, Quaternion.identity, enemyholder.transform); }
+                else if (randomPossibility > 84 && randomPossibility <= 102) { Instantiate(Marius, spawnPosition, Quaternion.identity, enemyholder.transform); }
+            }
+            spawned17 = true;
+        }
+    }
+
+}
