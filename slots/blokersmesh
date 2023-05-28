@@ -1,0 +1,232 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class blokersmesh : MonoBehaviour
+{
+    public SkillsController skills;
+    public GameObject randomslot;
+
+    // мб тут же и родитель переназначается
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.name == "Skil1" && other.transform.GetChild(0).gameObject.activeSelf == false) // или реакцию на позицию ровно на триггере
+        {
+            //other.transform.position = skills.slotKolonka1.transform.position;
+            other.transform.SetParent(skills.slotKolonka1.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+
+        }
+        else if (other.name == "Skil2" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka2.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil3" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka3.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil4" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka4.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil5" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka9.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil6" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka6.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+
+        }
+        else if (other.name == "Skil8" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka8.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil9" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka5.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil10" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka10.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil11" && other.transform.GetChild(0).gameObject.activeSelf == false) // или реакцию на подсветку
+        {
+            other.transform.SetParent(skills.slotKolonka11.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil12" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka12.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil13" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka13.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil14" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka14.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil15" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka15.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil16" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka16.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+
+        }
+        else if (other.name == "Skil17" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka17.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil18" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka18.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil19" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka19.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil20" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka20.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil21" && other.transform.GetChild(0).gameObject.activeSelf == false) // или реакцию на подсветку
+        {
+            other.transform.SetParent(skills.slotKolonka21.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil22" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka22.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil23" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka23.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil24" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka24.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil25" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka25.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil26" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka26.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+
+        }
+        else if (other.name == "Skil27" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka27.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil28" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka28.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil29" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka29.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil30" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka30.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil31" && other.transform.GetChild(0).gameObject.activeSelf == false) // или реакцию на подсветку
+        {
+            other.transform.SetParent(skills.slotKolonka31.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil32" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka32.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil33" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka33.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil34" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka34.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil35" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka35.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil36" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka36.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+
+        }
+        else if (other.name == "Skil37" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka37.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil38" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka38.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil39" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka39.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil40" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka40.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil41" && other.transform.GetChild(0).gameObject.activeSelf == false) // или реакцию на подсветку
+        {
+            other.transform.SetParent(skills.slotKolonka41.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil42" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka42.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (other.name == "Skil43" && other.transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            other.transform.SetParent(skills.slotKolonka43.transform);
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+
+    }
+
+}
