@@ -1,0 +1,2366 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+
+public class battlefinal : MonoBehaviour
+{
+    public music musica;
+    public obuchregul obuchregul;
+    public gganimation anime;
+    public mermenreader mermanreader;
+    public EnemySpawnerB1 enemySpawner;
+    public battleplayer player;
+    public DistanceToCheckpoint distanceCount;
+    public ConfirmScreen podtverjdenie;
+    public BattleScreen battleModeVisibility;
+    public Levels forLevel;
+    public MermaidController mermaids;
+    public GeneHolders holders;
+    public IkraIndicator ikorka;
+    public PlayerController playerControl;
+
+    public float secondchanse;
+    public float timerdeath;
+    public AudioSource kvest1;
+    public AudioSource kvest2;
+    public AudioSource kristl;
+    public Image mosk;
+    public Color32 gnilcolor;
+    public Color32 normalmoskcolor;
+    public Color32 transparent;
+    public Image galochka;
+
+    public float ringwoodit;
+    public float respawnringwo;
+
+    public float evermermaids;
+    public bool resultMode = false;
+    public Slot1 slotsgg;
+    public Slo1 slotsmerman;
+    public float playerTotalHp;
+    public float mermanTotalHp;
+    public bool nagradataker = false;
+    public GameObject presentIkra;
+    public Text bonusikraText;
+
+    public GameObject place1;
+    public GameObject place2;
+    public GameObject place3;
+    public GameObject presentmermaid;
+    public GameObject presentmermaid2;
+    public GameObject garemSpecial2Button;
+
+    // все русалки в качестве объектов
+    public GameObject Alissa;
+    public GameObject Ascea;
+    public GameObject Abbeta;
+    public GameObject Babila;
+    public GameObject Batiza;
+    public GameObject Benta;
+    public GameObject Celliseea;
+    public GameObject Cirrata;
+    public GameObject Demosa;
+    public GameObject Echina;
+    public GameObject Ekhira;
+    public GameObject Galana;
+    public GameObject Golora;
+    public GameObject Grena;
+    public GameObject Hadeea;
+    public GameObject Heetha;
+    public GameObject Hioa;
+    public GameObject Khironda;
+    public GameObject Korypha;
+    public GameObject Krideia;
+    public GameObject Lata;
+    public GameObject Liheta;
+    public GameObject Mariusa;
+    public GameObject Mikta;
+    public GameObject Nemina;
+    public GameObject Nerrelida;
+    public GameObject Nophora;
+    public GameObject Pareeda;
+    public GameObject Pastera;
+    public GameObject Phanosa;
+    public GameObject Pharna;
+    public GameObject Phiua;
+    public GameObject Phobela;
+    public GameObject Ploga;
+    public GameObject Popmpa;
+    public GameObject Prokta;
+    public GameObject Ragoa;
+    public GameObject Roida;
+    public GameObject Sactina;
+    public GameObject Scipha;
+    public GameObject Sotheta;
+    public GameObject Thanaida;
+    public GameObject Themuma;
+    public GameObject Theusa;
+    public GameObject Tkhara;
+    public GameObject Topela;
+    public GameObject Typhlona;
+    public GameObject Zema;
+
+    // места в качестве объектов
+    public GameObject mermaidslot1;
+    public GameObject mermaidslot2;
+    public GameObject mermaidslot3;
+    public GameObject mermaidslot4;
+    public GameObject mermaidslot5;
+    public GameObject mermaidslot6;
+
+    public bool mermPosition1justset = false;
+    public bool mermPosition2justset = false;
+    public bool mermPosition3justset = false;
+    public bool mermPosition4justset = false;
+    public bool mermPosition5justset = false;
+    public bool mermPosition6justset = false;
+
+    public GameObject presentryba;
+    public GameObject presentrak;
+    public GameObject presentmolusk;
+    public GameObject presentcherv;
+    public GameObject presentzvezdi;
+    public GameObject presentmedus;
+    public GameObject presenthubka;
+    public GameObject presentnote;
+
+    public GameObject ringvudit;
+    public bool moskcolorchange;
+    public bool deathmode;
+
+    public GameObject zametkascreen;
+    public GameObject mermanfish;
+
+    void Start()
+    {
+        timerdeath = 5f;
+        resultMode = false;
+        presentIkra.SetActive(false);
+        garemSpecial2Button.SetActive(false);
+        zametkascreen.SetActive(false);
+    }
+
+    void Update()
+    {
+
+        // Здесь игрок соглашается с ничьей / проигрышем, происходят последствия
+        //if (resultMode == true && podtverjdenie.podtverjdenoOk == true && podtverjdenie.presentBack.activeSelf == false)
+        //{
+            //if (player.shkalaUzhasaVraga > 0)
+            //{
+               // forLevel.expe += 2;
+            //}
+            //if (player.shkalaUzhasaGG >= player.shkalaUzhasaVraga || respawnringwo != 0)
+            //{
+// тут было подтверждение поражения
+           // }
+        //}
+
+        if (resultMode == true && podtverjdenie.podtverjdenoOk == true)
+        {
+            podtverjdenie.podtverjdenoOk = false;
+            podtverjdenie.podtverjdenoTapom = false;
+            podtverjdenie.noteBack.SetActive(false);
+            podtverjdenie.noteText.text = " ";
+            podtverjdenie.confirmOk.SetActive(false);
+        }
+
+
+        // Здесь игрок соглашается с победой, происходят последствия
+
+
+
+
+        if ((resultMode == true && podtverjdenie.podtverjdenoTapom == true && podtverjdenie.podtverjdenoOk == false && mermaids.confirmGaremBack.activeSelf == false) || (playerControl.nagradoid == true && podtverjdenie.podtverjdenoTapom == true && podtverjdenie.podtverjdenoOk == false && mermaids.confirmGaremBack.activeSelf == false))
+        {
+
+            if ((player.shkalaUzhasaGG < player.shkalaUzhasaVraga || playerControl.nagradoid == true) && holders.RingwooditKey == false)
+            {
+                if (holders.IkraBonusKey == true) // если игрок выбрал икру
+                {
+                    ikorka.ikra += battleModeVisibility.randomIkornyy;
+                    battleModeVisibility.newMermaids = 0;
+                    forLevel.expe += 4;
+                    PlayerPrefs.SetFloat("expe", forLevel.expe);
+                    PlayerPrefs.SetFloat("level", forLevel.level);
+                    if (distanceCount.distance > forLevel.maxDepth)
+                    {
+                        PlayerPrefs.SetFloat("maxDepth", distanceCount.distance);
+                    }
+                    PlayerPrefs.Save();
+                    mermaids.mermaidButtonImitator.SetActive(false);
+                    presentIkra.SetActive(false);
+                    bonusikraText.text = " ";
+                    podtverjdenie.noteBack.SetActive(false);
+                    player.playingMode = false;
+                    resultMode = false;
+                    nagradataker = false;
+                    if(enemySpawner.fishbiom)
+                    {
+                        mermanfish.SetActive(false);
+                    }
+
+                    battleModeVisibility.skippingMode = true;
+
+                    // Восстановление, ПРОВЕРКА
+                }
+                if (holders.ZametkaKey == true) // если игрок выбрал заметку
+                {
+                    battleModeVisibility.mermaidprevious = battleModeVisibility.mermaidPlace2;
+                    battleModeVisibility.newMermaids = 0;
+                    forLevel.expe += 4;
+                    PlayerPrefs.SetFloat("expe", forLevel.expe);
+                    PlayerPrefs.SetFloat("level", forLevel.level);
+                    if (distanceCount.distance > forLevel.maxDepth)
+                    {
+                        PlayerPrefs.SetFloat("maxDepth", distanceCount.distance);
+                    }
+                    battleModeVisibility.zapiski += 1;
+                    PlayerPrefs.SetFloat("zapiski", battleModeVisibility.zapiski);
+                    PlayerPrefs.Save();
+                    mermaids.mermaidButtonImitator.SetActive(false);
+                    presentIkra.SetActive(false);
+                    bonusikraText.text = " ";
+                    podtverjdenie.noteBack.SetActive(false);
+                    player.playingMode = false;
+                    resultMode = false;
+                    nagradataker = false;
+                    // включение заметки, и оно должно блокировать награду уровня, и потом выключиться
+                    battleModeVisibility.zapisoid();
+                    zametkascreen.SetActive(true);
+                    battleModeVisibility.skippingMode = true;
+                }
+
+                if (mermaids.mermaids + battleModeVisibility.newMermaids > forLevel.garemSize && battleModeVisibility.newMermaids == 1) // если лимит русалок превышен, и игрок выбрал новую русалку
+                {
+                    // убрать ключ, подсветку и поисание, вывести подсказку, которая исчезает с тапом в любом месте
+                    holders.obnulenie_priza_batol();
+                    obuchregul.podsklimit.SetActive(true);
+                }
+                if (mermaids.mermaids + battleModeVisibility.newMermaids <= forLevel.garemSize && battleModeVisibility.newMermaids == 1) // если лимит русалок не превышен, и игрок выбрал новую русалку
+                {
+                    evermermaids = 1;
+                    battleModeVisibility.newMermaids = 0;
+                    mermaids.mermaids += 1;
+                    // определяем свободную позицию
+                    if (mermaids.mermPosition1 == false)
+                    {
+                        mermaids.mermPosition1 = true;
+                        mermPosition1justset = true;
+                    }
+                    if(mermPosition1justset == false && mermaids.mermPosition2 == false)
+                    {
+                        mermaids.mermPosition2 = true;
+                        mermPosition2justset = true;
+                    }
+                    if (mermPosition1justset == false && mermPosition2justset == false && mermaids.mermPosition3 == false)
+                    {
+                        mermaids.mermPosition3 = true;
+                        mermPosition3justset = true;
+                    }
+                    if (mermPosition1justset == false && mermPosition2justset == false && mermPosition3justset == false && mermaids.mermPosition4 == false)
+                    {
+                        mermaids.mermPosition4 = true;
+                        mermPosition4justset = true;
+                    }
+                    if (mermPosition1justset == false && mermPosition2justset == false && mermPosition3justset == false && mermPosition4justset == false && mermaids.mermPosition5 == false)
+                    {
+                        mermaids.mermPosition5 = true;
+                        mermPosition5justset = true;
+                    }
+                    if (mermPosition1justset == false && mermPosition2justset == false && mermPosition3justset == false && mermPosition4justset == false && mermPosition5justset == false && mermaids.mermPosition6 == false)
+                    {
+                        mermaids.mermPosition6 = true;
+                        mermPosition6justset = true;
+                    }
+
+
+
+
+
+
+
+
+
+                    if (holders.KrideiaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pKrideiaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 1;
+                            Instantiate(Krideia, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 1;
+                            Instantiate(Krideia, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 1;
+                            Instantiate(Krideia, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 1;
+                            Instantiate(Krideia, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 1;
+                            Instantiate(Krideia, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 1;
+                            Instantiate(Krideia, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.BatizaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pBatizaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 2;
+                            Instantiate(Batiza, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 2;
+                            Instantiate(Batiza, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 2;
+                            Instantiate(Batiza, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 2;
+                            Instantiate(Batiza, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 2;
+                            Instantiate(Batiza, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 2;
+                            Instantiate(Batiza, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.CirrataMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pCirrataMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 3;
+                            Instantiate(Cirrata, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 3;
+                            Instantiate(Cirrata, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 3;
+                            Instantiate(Cirrata, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 3;
+                            Instantiate(Cirrata, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 3;
+                            Instantiate(Cirrata, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 3;
+                            Instantiate(Cirrata, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.PlogaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pPlogaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 4;
+                            Instantiate(Ploga, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 4;
+                            Instantiate(Ploga, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 4;
+                            Instantiate(Ploga, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 4;
+                            Instantiate(Ploga, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 4;
+                            Instantiate(Ploga, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 4;
+                            Instantiate(Ploga, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.PharnaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pPharnaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 5;
+                            Instantiate(Pharna, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 5;
+                            Instantiate(Pharna, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 5;
+                            Instantiate(Pharna, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 5;
+                            Instantiate(Pharna, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 5;
+                            Instantiate(Pharna, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 5;
+                            Instantiate(Pharna, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.TyphlonaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pTyphlonaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 6;
+                            Instantiate(Typhlona, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 6;
+                            Instantiate(Typhlona, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 6;
+                            Instantiate(Typhlona, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 6;
+                            Instantiate(Typhlona, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 6;
+                            Instantiate(Typhlona, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 6;
+                            Instantiate(Typhlona, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.NeminaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pNeminaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 7;
+                            Instantiate(Nemina, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 7;
+                            Instantiate(Nemina, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 7;
+                            Instantiate(Nemina, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 7;
+                            Instantiate(Nemina, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 7;
+                            Instantiate(Nemina, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 7;
+                            Instantiate(Nemina, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.BentaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pBentaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 8;
+                            Instantiate(Benta, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 8;
+                            Instantiate(Benta, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 8;
+                            Instantiate(Benta, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 8;
+                            Instantiate(Benta, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 8;
+                            Instantiate(Benta, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 8;
+                            Instantiate(Benta, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+                    if (holders.AlissaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pAlissaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 9;
+                            Instantiate(Alissa, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 9;
+                            Instantiate(Alissa, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 9;
+                            Instantiate(Alissa, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 9;
+                            Instantiate(Alissa, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 9;
+                            Instantiate(Alissa, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 9;
+                            Instantiate(Alissa, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.PhiuaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pPhiuaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 10;
+                            Instantiate(Phiua, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 10;
+                            Instantiate(Phiua, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 10;
+                            Instantiate(Phiua, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 10;
+                            Instantiate(Phiua, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 10;
+                            Instantiate(Phiua, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 10;
+                            Instantiate(Phiua, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.AbbetaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pAbbetaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 11;
+                            Instantiate(Abbeta, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 11;
+                            Instantiate(Abbeta, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 11;
+                            Instantiate(Abbeta, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 11;
+                            Instantiate(Abbeta, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 11;
+                            Instantiate(Abbeta, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 11;
+                            Instantiate(Abbeta, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.PhobelaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pPhobelaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 12;
+                            Instantiate(Phobela, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 12;
+                            Instantiate(Phobela, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 12;
+                            Instantiate(Phobela, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 12;
+                            Instantiate(Phobela, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 12;
+                            Instantiate(Phobela, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 12;
+                            Instantiate(Phobela, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.PasteraMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pPasteraMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 13;
+                            Instantiate(Pastera, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 13;
+                            Instantiate(Pastera, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 13;
+                            Instantiate(Pastera, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 13;
+                            Instantiate(Pastera, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 13;
+                            Instantiate(Pastera, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 13;
+                            Instantiate(Pastera, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.PopmpaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pPopmpaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 14;
+                            Instantiate(Popmpa, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 14;
+                            Instantiate(Popmpa, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 14;
+                            Instantiate(Popmpa, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 14;
+                            Instantiate(Popmpa, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 14;
+                            Instantiate(Popmpa, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 14;
+                            Instantiate(Popmpa, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.TopelaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pTopelaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 15;
+                            Instantiate(Topela, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 15;
+                            Instantiate(Topela, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 15;
+                            Instantiate(Topela, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 15;
+                            Instantiate(Topela, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 15;
+                            Instantiate(Topela, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 15;
+                            Instantiate(Topela, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.LihetaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pLihetaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 16;
+                            Instantiate(Liheta, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 16;
+                            Instantiate(Liheta, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 16;
+                            Instantiate(Liheta, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 16;
+                            Instantiate(Liheta, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 16;
+                            Instantiate(Liheta, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 16;
+                            Instantiate(Liheta, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+                    if (holders.BabilaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pBabilaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 17;
+                            Instantiate(Babila, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 17;
+                            Instantiate(Babila, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 17;
+                            Instantiate(Babila, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 17;
+                            Instantiate(Babila, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 17;
+                            Instantiate(Babila, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 17;
+                            Instantiate(Babila, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.SactinaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pSactinaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 18;
+                            Instantiate(Sactina, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 18;
+                            Instantiate(Sactina, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 18;
+                            Instantiate(Sactina, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 18;
+                            Instantiate(Sactina, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 18;
+                            Instantiate(Sactina, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 18;
+                            Instantiate(Sactina, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.HeethaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pHeethaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 19;
+                            Instantiate(Heetha, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 19;
+                            Instantiate(Heetha, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 19;
+                            Instantiate(Heetha, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 19;
+                            Instantiate(Heetha, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 19;
+                            Instantiate(Heetha, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 19;
+                            Instantiate(Heetha, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.SothetaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pSothetaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 20;
+                            Instantiate(Sotheta, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 20;
+                            Instantiate(Sotheta, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 20;
+                            Instantiate(Sotheta, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 20;
+                            Instantiate(Sotheta, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 20;
+                            Instantiate(Sotheta, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 20;
+                            Instantiate(Sotheta, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.EchinaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pEchinaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 21;
+                            Instantiate(Echina, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 21;
+                            Instantiate(Echina, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 21;
+                            Instantiate(Echina, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 21;
+                            Instantiate(Echina, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 21;
+                            Instantiate(Echina, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 21;
+                            Instantiate(Echina, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.PhanosaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pPhanosaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 22;
+                            Instantiate(Phanosa, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 22;
+                            Instantiate(Phanosa, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 22;
+                            Instantiate(Phanosa, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 22;
+                            Instantiate(Phanosa, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 22;
+                            Instantiate(Phanosa, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 22;
+                            Instantiate(Phanosa, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.TheusaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pTheusaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 23;
+                            Instantiate(Theusa, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 23;
+                            Instantiate(Theusa, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 23;
+                            Instantiate(Theusa, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 23;
+                            Instantiate(Theusa, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 23;
+                            Instantiate(Theusa, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 23;
+                            Instantiate(Theusa, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.ZemaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pZemaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 24;
+                            Instantiate(Zema, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 24;
+                            Instantiate(Zema, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 24;
+                            Instantiate(Zema, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 24;
+                            Instantiate(Zema, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 24;
+                            Instantiate(Zema, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 24;
+                            Instantiate(Zema, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+                    if (holders.GrenaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pGrenaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 25;
+                            Instantiate(Grena, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 25;
+                            Instantiate(Grena, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 25;
+                            Instantiate(Grena, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 25;
+                            Instantiate(Grena, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 25;
+                            Instantiate(Grena, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 25;
+                            Instantiate(Grena, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.KoryphaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pKoryphaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 26;
+                            Instantiate(Korypha, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 26;
+                            Instantiate(Korypha, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 26;
+                            Instantiate(Korypha, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 26;
+                            Instantiate(Korypha, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 26;
+                            Instantiate(Korypha, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 26;
+                            Instantiate(Korypha, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.MiktaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pMiktaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 27;
+                            Instantiate(Mikta, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 27;
+                            Instantiate(Mikta, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 27;
+                            Instantiate(Mikta, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 27;
+                            Instantiate(Mikta, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 27;
+                            Instantiate(Mikta, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 27;
+                            Instantiate(Mikta, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.NophoraMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pNophoraMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 28;
+                            Instantiate(Nophora, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 28;
+                            Instantiate(Nophora, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 28;
+                            Instantiate(Nophora, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 28;
+                            Instantiate(Nophora, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 28;
+                            Instantiate(Nophora, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 28;
+                            Instantiate(Nophora, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.AsceaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pAsceaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 29;
+                            Instantiate(Ascea, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 29;
+                            Instantiate(Ascea, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 29;
+                            Instantiate(Ascea, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 29;
+                            Instantiate(Ascea, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 29;
+                            Instantiate(Ascea, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 29;
+                            Instantiate(Ascea, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.TkharaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pTkharaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 30;
+                            Instantiate(Tkhara, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 30;
+                            Instantiate(Tkhara, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 30;
+                            Instantiate(Tkhara, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 30;
+                            Instantiate(Tkhara, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 30;
+                            Instantiate(Tkhara, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 30;
+                            Instantiate(Tkhara, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.ProktaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pProktaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 31;
+                            Instantiate(Prokta, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 31;
+                            Instantiate(Prokta, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 31;
+                            Instantiate(Prokta, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 31;
+                            Instantiate(Prokta, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 31;
+                            Instantiate(Prokta, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 31;
+                            Instantiate(Prokta, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.PareedaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pPareedaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 32;
+                            Instantiate(Pareeda, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 32;
+                            Instantiate(Pareeda, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 32;
+                            Instantiate(Pareeda, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 32;
+                            Instantiate(Pareeda, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 32;
+                            Instantiate(Pareeda, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 32;
+                            Instantiate(Pareeda, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.HioaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pHioaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 33;
+                            Instantiate(Hioa, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 33;
+                            Instantiate(Hioa, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 33;
+                            Instantiate(Hioa, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 33;
+                            Instantiate(Hioa, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 33;
+                            Instantiate(Hioa, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 33;
+                            Instantiate(Hioa, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.GalanaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pGalanaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 34;
+                            Instantiate(Galana, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 34;
+                            Instantiate(Galana, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 34;
+                            Instantiate(Galana, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 34;
+                            Instantiate(Galana, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 34;
+                            Instantiate(Galana, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 34;
+                            Instantiate(Galana, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.LataMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pLataMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 35;
+                            Instantiate(Lata, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 35;
+                            Instantiate(Lata, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 35;
+                            Instantiate(Lata, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 35;
+                            Instantiate(Lata, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 35;
+                            Instantiate(Lata, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 35;
+                            Instantiate(Lata, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.SciphaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pSciphaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 36;
+                            Instantiate(Scipha, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 36;
+                            Instantiate(Scipha, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 36;
+                            Instantiate(Scipha, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 36;
+                            Instantiate(Scipha, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 36;
+                            Instantiate(Scipha, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 36;
+                            Instantiate(Scipha, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.RagoaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pRagoaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 37;
+                            Instantiate(Ragoa, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 37;
+                            Instantiate(Ragoa, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 37;
+                            Instantiate(Ragoa, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 37;
+                            Instantiate(Ragoa, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 37;
+                            Instantiate(Ragoa, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 37;
+                            Instantiate(Ragoa, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.EkhiraMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pEkhiraMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 38;
+                            Instantiate(Ekhira, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 38;
+                            Instantiate(Ekhira, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 38;
+                            Instantiate(Ekhira, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 38;
+                            Instantiate(Ekhira, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 38;
+                            Instantiate(Ekhira, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 38;
+                            Instantiate(Ekhira, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.RoidaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pRoidaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 39;
+                            Instantiate(Roida, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 39;
+                            Instantiate(Roida, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 39;
+                            Instantiate(Roida, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 39;
+                            Instantiate(Roida, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 39;
+                            Instantiate(Roida, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 39;
+                            Instantiate(Roida, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.MariusaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pMariusaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 40;
+                            Instantiate(Mariusa, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 40;
+                            Instantiate(Mariusa, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 40;
+                            Instantiate(Mariusa, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 40;
+                            Instantiate(Mariusa, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 40;
+                            Instantiate(Mariusa, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 40;
+                            Instantiate(Mariusa, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+                    if (holders.CelliseeaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pCelliseeaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 41;
+                            Instantiate(Celliseea, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 41;
+                            Instantiate(Celliseea, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 41;
+                            Instantiate(Celliseea, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 41;
+                            Instantiate(Celliseea, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 41;
+                            Instantiate(Celliseea, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 41;
+                            Instantiate(Celliseea, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.ThanaidaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pThanaidaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 42;
+                            Instantiate(Thanaida, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 42;
+                            Instantiate(Thanaida, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 42;
+                            Instantiate(Thanaida, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 42;
+                            Instantiate(Thanaida, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 42;
+                            Instantiate(Thanaida, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 42;
+                            Instantiate(Thanaida, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.ThemumaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pThemumaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 43;
+                            Instantiate(Themuma, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 43;
+                            Instantiate(Themuma, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 43;
+                            Instantiate(Themuma, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 43;
+                            Instantiate(Themuma, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 43;
+                            Instantiate(Themuma, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 43;
+                            Instantiate(Themuma, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.KhirondaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pKhirondaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 44;
+                            Instantiate(Khironda, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 44;
+                            Instantiate(Khironda, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 44;
+                            Instantiate(Khironda, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 44;
+                            Instantiate(Khironda, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 44;
+                            Instantiate(Khironda, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 44;
+                            Instantiate(Khironda, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.HadeeaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pHadeeaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 45;
+                            Instantiate(Hadeea, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 45;
+                            Instantiate(Hadeea, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 45;
+                            Instantiate(Hadeea, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 45;
+                            Instantiate(Hadeea, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 45;
+                            Instantiate(Hadeea, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 45;
+                            Instantiate(Hadeea, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.DemosaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pDemosaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 46;
+                            Instantiate(Demosa, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 46;
+                            Instantiate(Demosa, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 46;
+                            Instantiate(Demosa, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 46;
+                            Instantiate(Demosa, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 46;
+                            Instantiate(Demosa, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 46;
+                            Instantiate(Demosa, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.NerrelidaMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pNerrelidaMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 47;
+                            Instantiate(Nerrelida, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 47;
+                            Instantiate(Nerrelida, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 47;
+                            Instantiate(Nerrelida, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 47;
+                            Instantiate(Nerrelida, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 47;
+                            Instantiate(Nerrelida, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 47;
+                            Instantiate(Nerrelida, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    if (holders.GoloraMermaidKey)
+                    {
+                        PlayerPrefs.SetFloat("pGoloraMermaid", 1);
+                        PlayerPrefs.Save();
+                        if (mermPosition1justset)
+                        {
+                            mermaids.herPosition1 = 48;
+                            Instantiate(Golora, mermaidslot1.transform.position, Quaternion.identity, mermaidslot1.transform);
+                        }
+                        if (mermPosition2justset)
+                        {
+                            mermaids.herPosition2 = 48;
+                            Instantiate(Golora, mermaidslot2.transform.position, Quaternion.identity, mermaidslot2.transform);
+                        }
+                        if (mermPosition3justset)
+                        {
+                            mermaids.herPosition3 = 48;
+                            Instantiate(Golora, mermaidslot3.transform.position, Quaternion.identity, mermaidslot3.transform);
+                        }
+                        if (mermPosition4justset)
+                        {
+                            mermaids.herPosition4 = 48;
+                            Instantiate(Golora, mermaidslot4.transform.position, Quaternion.identity, mermaidslot4.transform);
+                        }
+                        if (mermPosition5justset)
+                        {
+                            mermaids.herPosition5 = 48;
+                            Instantiate(Golora, mermaidslot5.transform.position, Quaternion.identity, mermaidslot5.transform);
+                        }
+                        if (mermPosition6justset)
+                        {
+                            mermaids.herPosition6 = 48;
+                            Instantiate(Golora, mermaidslot6.transform.position, Quaternion.identity, mermaidslot6.transform);
+                        }
+                    }
+
+                    mermPosition1justset = false;
+                    mermPosition2justset = false;
+                    mermPosition3justset = false;
+                    mermPosition4justset = false;
+                    mermPosition5justset = false;
+                    mermPosition6justset = false;
+                    forLevel.expe += 4;
+                    PlayerPrefs.SetFloat("expe", forLevel.expe);
+                    PlayerPrefs.SetFloat("level", forLevel.level);
+                    if (distanceCount.distance > forLevel.maxDepth)
+                    {
+                        PlayerPrefs.SetFloat("maxDepth", distanceCount.distance);
+                    }
+                    PlayerPrefs.Save();
+                    mermaids.mermaidButtonImitator.SetActive(false);
+                    presentIkra.SetActive(false);
+                    bonusikraText.text = " ";
+                    podtverjdenie.noteBack.SetActive(false);
+                    player.playingMode = false;
+                    resultMode = false;
+                    nagradataker = false;
+                    battleModeVisibility.skippingMode = true;
+
+                    // Восстановление, ПРОВЕРКА
+                }
+
+            }
+
+
+
+
+
+
+        }
+
+
+        
+
+        // Здесь выдаётся результат боя
+
+        if (resultMode == true && podtverjdenie.podtverjdenoOk == false && podtverjdenie.noteBack.activeSelf == false && podtverjdenie.presentBack.activeSelf == false)
+        {
+            slotsmerman.slo1blocked.SetActive(false);
+            slotsmerman.slo2blocked.SetActive(false);
+            slotsmerman.slo3blocked.SetActive(false);
+            slotsmerman.slo4blocked.SetActive(false);
+            slotsmerman.slo5blocked.SetActive(false);
+            slotsmerman.slo6blocked.SetActive(false);
+            slotsmerman.slo7blocked.SetActive(false);
+            slotsmerman.slo8blocked.SetActive(false);
+            slotsmerman.slo9blocked.SetActive(false);
+
+            if (enemySpawner.dot1 || enemySpawner.dot2 || enemySpawner.dot3)
+            {
+                // победа
+                if (enemySpawner.dot1 && slotsmerman.slo2Hp <= 0 && slotsmerman.slo4Hp <= 0 && slotsmerman.slo6Hp <= 0 && slotsmerman.slo8Hp <= 0 && slotsmerman.slo1Hp > 0 && slotsmerman.slo3Hp > 0 && slotsmerman.slo5Hp > 0 && slotsmerman.slo7Hp > 0 && slotsmerman.slo9Hp > 0)
+                {
+                    kvest1.Play(0);
+                    pobedoid();
+                }
+                if (enemySpawner.dot2 && slotsmerman.slo2Hp <= 0 && slotsmerman.slo6Hp <= 0 && slotsmerman.slo8Hp <= 0 && slotsmerman.slo4Hp > 0 && slotsmerman.slo1Hp > 0 && slotsmerman.slo3Hp > 0 && slotsmerman.slo5Hp > 0 && slotsmerman.slo7Hp > 0 && slotsmerman.slo9Hp > 0)
+                {
+                    kvest2.Play(0);
+                    pobedoid();
+                }
+                if (enemySpawner.dot3 && slotsmerman.slo2Hp <= 0 && slotsmerman.slo6Hp > 0 && slotsmerman.slo8Hp <= 0 && slotsmerman.slo4Hp > 0 && slotsmerman.slo1Hp <= 0 && slotsmerman.slo3Hp <= 0 && slotsmerman.slo5Hp <= 0 && slotsmerman.slo7Hp > 0 && slotsmerman.slo9Hp > 0)
+                {
+                    pobedoid();
+                }
+
+                if (enemySpawner.dot1 && (slotsmerman.slo2Hp > 0 || slotsmerman.slo4Hp > 0 || slotsmerman.slo6Hp > 0 || slotsmerman.slo8Hp > 0 || slotsmerman.slo1Hp <= 0 || slotsmerman.slo3Hp <= 0 || slotsmerman.slo5Hp <= 0 || slotsmerman.slo7Hp <= 0 || slotsmerman.slo9Hp <= 0))
+                {
+
+                    failringwo();
+                }
+                if (enemySpawner.dot2 && (slotsmerman.slo2Hp > 0 || slotsmerman.slo6Hp > 0 || slotsmerman.slo8Hp > 0 || slotsmerman.slo4Hp <= 0 || slotsmerman.slo1Hp <= 0 || slotsmerman.slo3Hp <= 0 || slotsmerman.slo5Hp <= 0 || slotsmerman.slo7Hp <= 0 || slotsmerman.slo9Hp <= 0))
+                {
+                    failringwo();
+                }
+                if (enemySpawner.dot3 && (slotsmerman.slo2Hp > 0 || slotsmerman.slo6Hp <= 0 || slotsmerman.slo8Hp > 0 || slotsmerman.slo4Hp <= 0 || slotsmerman.slo1Hp > 0 || slotsmerman.slo3Hp > 0 || slotsmerman.slo5Hp > 0 || slotsmerman.slo7Hp <= 0 || slotsmerman.slo9Hp <= 0))
+                {
+                    failringwo();
+                }
+            }
+            else
+            {
+                // это если обычный бой
+                if (player.shkalaUzhasaGG < player.shkalaUzhasaVraga) // победа
+                {
+                    // если активирован какой-то приз
+                    mermaids.mermaidButtonImitator.SetActive(true);
+                    if (forLevel.languager == 0)
+                    {
+                        podtverjdenie.presentText.text = "Win";
+                    }
+                    if (forLevel.languager == 1)
+                    {
+                        podtverjdenie.presentText.text = "Победа";
+                    }
+                    else if (forLevel.languager == 2)
+                    {
+                        podtverjdenie.presentText.text = "Перемога";
+                    }
+                    if (forLevel.languager == 0)
+                    {
+                        podtverjdenie.presentText3.text = "Choose a reward";
+                    }
+                    if (forLevel.languager == 1)
+                    {
+                        podtverjdenie.presentText3.text = "Пора выбирать награду";
+                    }
+                    else if (forLevel.languager == 2)
+                    {
+                        podtverjdenie.presentText3.text = "Час обирати нагороду";
+                    }
+                    nagradataker = true;
+                    podtverjdenie.podtverjdenoTapom = false;
+                    podtverjdenie.presentBack.SetActive(true);
+                    if (battleModeVisibility.mermaidPlace2 != 100 || battleModeVisibility.randomIkornyy != 0) // если не рингвудит и вообще есть икра
+                    {
+                        presentIkra.SetActive(true);
+                        bonusikraText.text = battleModeVisibility.randomIkornyy.ToString("F0");
+                    }
+
+                    // спавн значка русалки зависимо от её вида
+                    if (battleModeVisibility.mermaidPlace1 == 2 || battleModeVisibility.mermaidPlace1 == 4 || battleModeVisibility.mermaidPlace1 == 5 || battleModeVisibility.mermaidPlace1 == 6 || battleModeVisibility.mermaidPlace1 == 11 || battleModeVisibility.mermaidPlace1 == 16 || battleModeVisibility.mermaidPlace1 == 20 || battleModeVisibility.mermaidPlace1 == 25 || battleModeVisibility.mermaidPlace1 == 27 || battleModeVisibility.mermaidPlace1 == 31 || battleModeVisibility.mermaidPlace1 == 32 || battleModeVisibility.mermaidPlace1 == 33 || battleModeVisibility.mermaidPlace1 == 35) // рыбы
+                    {
+                        Instantiate(presentryba, place1.transform.position, Quaternion.identity, place1.transform);
+                    }
+                    else if (battleModeVisibility.mermaidPlace1 == 1 || battleModeVisibility.mermaidPlace1 == 9 || battleModeVisibility.mermaidPlace1 == 37 || battleModeVisibility.mermaidPlace1 == 42 || battleModeVisibility.mermaidPlace1 == 44 || battleModeVisibility.mermaidPlace1 == 47)
+                    {
+                        Instantiate(presentrak, place1.transform.position, Quaternion.identity, place1.transform);
+                    }
+                    else if (battleModeVisibility.mermaidPlace1 == 3 || battleModeVisibility.mermaidPlace1 == 15 || battleModeVisibility.mermaidPlace1 == 19 || battleModeVisibility.mermaidPlace1 == 23 || battleModeVisibility.mermaidPlace1 == 38)
+                    {
+                        Instantiate(presentmolusk, place1.transform.position, Quaternion.identity, place1.transform);
+                    }
+                    else if (battleModeVisibility.mermaidPlace1 == 7 || battleModeVisibility.mermaidPlace1 == 14 || battleModeVisibility.mermaidPlace1 == 24 || battleModeVisibility.mermaidPlace1 == 41 || battleModeVisibility.mermaidPlace1 == 46)
+                    {
+                        Instantiate(presentcherv, place1.transform.position, Quaternion.identity, place1.transform);
+                    }
+                    else if (battleModeVisibility.mermaidPlace1 == 8 || battleModeVisibility.mermaidPlace1 == 21 || battleModeVisibility.mermaidPlace1 == 10)
+                    {
+                        Instantiate(presentzvezdi, place1.transform.position, Quaternion.identity, place1.transform);
+                    }
+                    else if (battleModeVisibility.mermaidPlace1 == 12 || battleModeVisibility.mermaidPlace1 == 17 || battleModeVisibility.mermaidPlace1 == 22 || battleModeVisibility.mermaidPlace1 == 28 || battleModeVisibility.mermaidPlace1 == 29 || battleModeVisibility.mermaidPlace1 == 34 || battleModeVisibility.mermaidPlace1 == 36 || battleModeVisibility.mermaidPlace1 == 40)
+                    {
+                        Instantiate(presentmedus, place1.transform.position, Quaternion.identity, place1.transform);
+                    }
+                    else if (battleModeVisibility.mermaidPlace1 == 13 || battleModeVisibility.mermaidPlace1 == 18 || battleModeVisibility.mermaidPlace1 == 48 || battleModeVisibility.mermaidPlace1 == 30)
+                    {
+                        Instantiate(presenthubka, place1.transform.position, Quaternion.identity, place1.transform);
+                    }
+
+                    if (battleModeVisibility.randomObilia == 2)
+                    {
+                        if (battleModeVisibility.mermaidPlace2 == 2 || battleModeVisibility.mermaidPlace2 == 4 || battleModeVisibility.mermaidPlace2 == 5 || battleModeVisibility.mermaidPlace2 == 6 || battleModeVisibility.mermaidPlace2 == 11 || battleModeVisibility.mermaidPlace2 == 16 || battleModeVisibility.mermaidPlace2 == 20 || battleModeVisibility.mermaidPlace2 == 25 || battleModeVisibility.mermaidPlace2 == 27 || battleModeVisibility.mermaidPlace2 == 31 || battleModeVisibility.mermaidPlace2 == 32 || battleModeVisibility.mermaidPlace2 == 33 || battleModeVisibility.mermaidPlace2 == 35) // рыбы
+                        {
+                            Instantiate(presentryba, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+                        else if (battleModeVisibility.mermaidPlace2 == 1 || battleModeVisibility.mermaidPlace2 == 9 || battleModeVisibility.mermaidPlace2 == 37 || battleModeVisibility.mermaidPlace2 == 42 || battleModeVisibility.mermaidPlace2 == 44 || battleModeVisibility.mermaidPlace2 == 47)
+                        {
+                            Instantiate(presentrak, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+                        else if (battleModeVisibility.mermaidPlace2 == 3 || battleModeVisibility.mermaidPlace2 == 15 || battleModeVisibility.mermaidPlace2 == 19 || battleModeVisibility.mermaidPlace2 == 23 || battleModeVisibility.mermaidPlace2 == 38)
+                        {
+                            Instantiate(presentmolusk, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+                        else if (battleModeVisibility.mermaidPlace2 == 7 || battleModeVisibility.mermaidPlace2 == 14 || battleModeVisibility.mermaidPlace2 == 24 || battleModeVisibility.mermaidPlace2 == 41 || battleModeVisibility.mermaidPlace2 == 46)
+                        {
+                            Instantiate(presentcherv, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+                        else if (battleModeVisibility.mermaidPlace2 == 8 || battleModeVisibility.mermaidPlace2 == 21 || battleModeVisibility.mermaidPlace2 == 10)
+                        {
+                            Instantiate(presentzvezdi, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+                        else if (battleModeVisibility.mermaidPlace2 == 12 || battleModeVisibility.mermaidPlace2 == 17 || battleModeVisibility.mermaidPlace2 == 22 || battleModeVisibility.mermaidPlace2 == 28 || battleModeVisibility.mermaidPlace2 == 29 || battleModeVisibility.mermaidPlace2 == 34 || battleModeVisibility.mermaidPlace2 == 36 || battleModeVisibility.mermaidPlace2 == 40)
+                        {
+                            Instantiate(presentmedus, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+                        else if (battleModeVisibility.mermaidPlace2 == 13 || battleModeVisibility.mermaidPlace2 == 18 || battleModeVisibility.mermaidPlace2 == 48 || battleModeVisibility.mermaidPlace2 == 30)
+                        {
+                            Instantiate(presenthubka, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+                        else if (battleModeVisibility.mermaidPlace2 == 60)
+                        {
+                            Instantiate(presentnote, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+                        else if (battleModeVisibility.mermaidPlace2 == 100)
+                        {
+                            Instantiate(ringvudit, place2.transform.position, Quaternion.identity, place2.transform);
+                        }
+
+                    }
+                    garemSpecial2Button.SetActive(true);
+
+                }
+
+                else if (player.shkalaUzhasaGG >= player.shkalaUzhasaVraga && moskcolorchange == false) // поражение
+                {
+                    moskcolorchange = true;
+                    player.playingMode = false;
+                    resultMode = false;
+                    nagradataker = false;
+                    // тут мб предложение рекламы
+
+                    secondchanse += 1;
+                    forLevel.expe += 1;
+                    PlayerPrefs.SetFloat("expe", forLevel.expe);
+                    PlayerPrefs.SetFloat("level", forLevel.level);
+                    PlayerPrefs.SetFloat("evermermaids", evermermaids);
+
+                    if (distanceCount.distance > forLevel.maxDepth)
+                    {
+                        PlayerPrefs.SetFloat("maxDepth", distanceCount.distance);
+                    }
+                    PlayerPrefs.Save();
+                    if (secondchanse > 1)
+                    {
+                        deathmode = true;
+                    }
+                    else
+                    {
+                        podtverjdenie.podtverjdenoOk = false;
+                        podtverjdenie.noteBack.SetActive(true);
+                    }
+
+                }
+            }
+
+        }
+
+        if(moskcolorchange)
+        {
+
+            //galochka.color = Color.Lerp(galochka.color, transparent, Time.deltaTime / 2f); 
+            mosk.color = Color.Lerp(mosk.color, gnilcolor, Time.deltaTime / 1f);
+            timerdeath -= Time.deltaTime;
+            if (forLevel.languager == 0)
+            {
+                podtverjdenie.noteText.text = "intimidation failed. \ndistract the enemy by\nvision broadcast? (" + timerdeath.ToString("F0") + ")";
+            }
+            if (forLevel.languager == 1)
+            {
+                podtverjdenie.noteText.text = "запугать не вышло. \nнаслать на врага видения? \n(" + timerdeath.ToString("F0") + ")";
+            }
+            else if (forLevel.languager == 2)
+            {
+                podtverjdenie.noteText.text = "залякування марне. \nнаслати на ворога ілюзії? \n(" + timerdeath.ToString("F0") + ")";
+            }
+            if (timerdeath <= 0)
+            {
+                podtverjdenie.noteBack.SetActive(false);
+                podtverjdenie.noteText.text = " ";
+                podtverjdenie.confirmOk.SetActive(false);
+                deathmode = true;
+            }
+        }
+    }
+
+    public void failringwo()
+    {
+        if (respawnringwo == 0) //поражение первое с респавном, тут гг должен покрыться коркой со звуком, без оповещения
+        {
+            respawnringwo = 1f;
+            kristl.Play(0);
+            // тут корка, плавнее, смотри на мимикрию
+            anime.ringwohead.SetActive(true);
+            anime.ringwoarm.SetActive(true);
+            anime.ringwodown.SetActive(true);
+
+            // респавн и открыть навыки заново?
+            player.playingMode = false;
+            resultMode = false;
+            nagradataker = false;
+            mermanreader.skipEnemy(); // очистка после боя
+            battleModeVisibility.randomObilia = 2;
+            battleModeVisibility.mermaidPlace1 = 0;
+            battleModeVisibility.mermaidPlace2 = 100;
+            battleModeVisibility.randomIkornyy = 0;
+            battleModeVisibility.mermanChitaetsya = true; // спавн всего заново
+
+
+        }
+        else if (respawnringwo != 0) // поражение окончательное, концовка замерзания
+        {
+            player.playingMode = false;
+            resultMode = false;
+            nagradataker = false;
+            mermanreader.skipEnemy();
+            musica.finalka.volume = 0;
+            musica.viseoplayer.SetActive(true);
+            musica.cutscene2ringwoodfail.Play();
+
+        }
+        
+    }
+
+    public void pobedoid()
+    {
+        if (forLevel.languager == 0)
+        {
+            podtverjdenie.presentText.text = "Win";
+        }
+        if (forLevel.languager == 1)
+        {
+            podtverjdenie.presentText.text = "Победа";
+        }
+        else if (forLevel.languager == 2)
+        {
+            podtverjdenie.presentText.text = "Перемога";
+        }
+        if (forLevel.languager == 0)
+        {
+            podtverjdenie.presentText3.text = "Choose a reward";
+        }
+        if (forLevel.languager == 1)
+        {
+            podtverjdenie.presentText3.text = "Пора выбирать награду";
+        }
+        else if (forLevel.languager == 2)
+        {
+            podtverjdenie.presentText3.text = "Час обирати нагороду";
+        }
+        nagradataker = true;
+        podtverjdenie.podtverjdenoTapom = false;
+        podtverjdenie.presentBack.SetActive(true);
+        Instantiate(ringvudit, place2.transform.position, Quaternion.identity, place2.transform);
+        enemySpawner.dot1 = false;
+        enemySpawner.dot2 = false;
+        enemySpawner.dot3 = false;
+    }
+
+    public void Ringvushka()
+    {
+        battleModeVisibility.newMermaids = 0;
+        forLevel.expe += 4;
+        PlayerPrefs.SetFloat("expe", forLevel.expe);
+        PlayerPrefs.SetFloat("level", forLevel.level);
+        if (distanceCount.distance > forLevel.maxDepth)
+        {
+            PlayerPrefs.SetFloat("maxDepth", distanceCount.distance);
+        }
+        PlayerPrefs.Save();
+        mermaids.mermaidButtonImitator.SetActive(false);
+        presentIkra.SetActive(false);
+        bonusikraText.text = " ";
+        podtverjdenie.noteBack.SetActive(false);
+        player.playingMode = false;
+        resultMode = false;
+        nagradataker = false;
+        battleModeVisibility.skippingMode = true;
+    }
+
+}
