@@ -1,0 +1,2696 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
+
+public class BeforeDive : MonoBehaviour
+{
+    public battlefinal batolfinal;
+    public obuchregul obuchregul;
+    public DistanceToCheckpoint distancePoints;
+    public mermenreader mermanReader;
+    public MermaidController mermaids;
+    public GenController gens;
+    public PlayerController player;
+    public ConfirmScreen podtverjdenie;
+    public Levels progress;
+    public SkillsController skillet;
+    public gganimation anime;
+    public skillsreader skilchitalka;
+
+    public GameObject voda;
+    public GameObject voda2;
+    public GameObject voda3;
+    private float kolebanie;
+    private bool ziklvody;
+
+    public List<GameObject> snega;
+    public List<GameObject> parallaxravniai;
+
+    public GameObject skillsknopablesk;
+    public GameObject skillsknopka;
+    Rigidbody2D rbskillsknopka;
+    public GameObject gensknopka;
+    Rigidbody2D rbgensknopka;
+    public GameObject skillSpesholInd;
+    public GameObject slotsBlokers1Tut;
+    public GameObject slotsBlokers2Tut;
+    public GameObject slotsTut;
+    public GameObject slotVragatut;
+    public GameObject levelerTut;
+    public GameObject indicatorsTut;
+    public GameObject moverGgSlots;
+    public GameObject moverEnSlots;
+    public GameObject moverGgBlocks;
+    public GameObject moverEnBlocks;
+    public GameObject skills;
+    public GameObject skills2;
+    public GameObject genlab;
+    public GameObject RusalkiTut;
+    public GameObject PodarkiTut;
+    public GameObject IkraTut;
+    public GameObject MainMenuTut;
+    public GameObject spawnerTut;
+    public GameObject MovementTut;
+    public GameObject GensBackTut;
+    public GameObject GensDesriptionsTut;
+    public GameObject genButton;
+    public GameObject GensKletiki;
+    public GameObject Tab1;
+    public GameObject Tab2;
+    public GameObject Tab3;
+    public GameObject Tab4;
+    public GameObject Tab5;
+    public Color32 ggcolor;
+    public Color32 ggcolorfortransp;
+
+    public float prozrachnost;
+
+    private Vector3 potribnarotatia;
+
+    private bool justonce;
+    public bool justonce2;
+    private bool justoncepokazhi;
+    private bool poimangenami;
+    private int randomdegrade;
+
+    public Color32 colorStart;
+    public Color32 colorEnd;
+    public float duration;
+
+    private Vector3 sizeNormie;
+    private Vector3 scaleChange;
+
+    void Start()
+    {
+        kolebanie = 0f;
+        sizeNormie = new Vector3(1f, 1f, 0f);
+        scaleChange = new Vector3(0.005f, 0.005f, 0f);
+        Color32 ggcolor = new Color32(255, 255, 255, 255);
+        Color32 ggcolorfortransp = new Color32(255, 255, 255, 255);
+        randomdegrade = Random.Range(1, 70);
+        justonce = false;
+        // читаем коллекцию
+        duration = 15f;
+
+        // читаем собранные гены
+        gens.rStatocyst = PlayerPrefs.GetFloat("rStatocyst");
+        gens.rHydropora = PlayerPrefs.GetFloat("rHydropora");
+        gens.rOsmolit = PlayerPrefs.GetFloat("rOsmolit");
+        gens.rLipid = PlayerPrefs.GetFloat("rLipid");
+        gens.rKrioprotector = PlayerPrefs.GetFloat("rKrioprotector");
+        gens.rGigantizm = PlayerPrefs.GetFloat("rGigantizm");
+        gens.rSliz = PlayerPrefs.GetFloat("rSliz");
+        gens.rPancer = PlayerPrefs.GetFloat("rPancer");
+        gens.rEcholocatia = PlayerPrefs.GetFloat("rEcholocatia");
+        gens.rHemoreceptor = PlayerPrefs.GetFloat("rHemoreceptor");
+        gens.rPhotoreceptor = PlayerPrefs.GetFloat("rPhotoreceptor");
+        gens.rMechanoreceptor = PlayerPrefs.GetFloat("rMechanoreceptor");
+        gens.rElectroreceptor = PlayerPrefs.GetFloat("rElectroreceptor");
+        gens.rRedPigment = PlayerPrefs.GetFloat("rRedPigment");
+        gens.rProzrachnost = PlayerPrefs.GetFloat("rProzrachnost");
+        gens.rChernyyPigment = PlayerPrefs.GetFloat("rChernyyPigment");
+        gens.rMimicria = PlayerPrefs.GetFloat("rMimicria");
+        gens.rLuminiscencia = PlayerPrefs.GetFloat("rLuminiscencia");
+        gens.rToxiny = PlayerPrefs.GetFloat("rToxiny");
+        gens.rRegeneration = PlayerPrefs.GetFloat("rRegeneration");
+        gens.rEvisceration = PlayerPrefs.GetFloat("rEvisceration");
+        gens.rPedicellariy = PlayerPrefs.GetFloat("rPedicellariy");
+        gens.rPrisosky = PlayerPrefs.GetFloat("rPrisosky");
+        gens.rChernMeshok = PlayerPrefs.GetFloat("rChernMeshok");
+        gens.rCuvierovi = PlayerPrefs.GetFloat("rCuvierovi");
+        gens.rColloblasty = PlayerPrefs.GetFloat("rColloblasty");
+        gens.rCirri = PlayerPrefs.GetFloat("rCirri");
+        gens.rPlavniki = PlayerPrefs.GetFloat("rPlavniki");
+        gens.rImmunitet = PlayerPrefs.GetFloat("rImmunitet");
+        gens.rZuby = PlayerPrefs.GetFloat("rZuby");
+        gens.rDopPolost = PlayerPrefs.GetFloat("rDopPolost");
+        gens.rDopEnergia = PlayerPrefs.GetFloat("rDopEnergia");
+        gens.rPheromones = PlayerPrefs.GetFloat("rPheromones");
+        gens.rDegradation = PlayerPrefs.GetFloat("rDegradation");
+        gens.rUskorennoeRazvitie = PlayerPrefs.GetFloat("rUskorennoeRazvitie");
+        gens.rMagnetic = PlayerPrefs.GetFloat("rMagnetic");
+        // ограничиваем найденные гены до 3
+        if (gens.rStatocyst > 3)
+        {
+            gens.rStatocyst = 3;
+        }
+        if (gens.rHydropora > 3)
+        {
+            gens.rHydropora = 3; 
+        }
+        if (gens.rOsmolit > 3)
+        {
+            gens.rOsmolit = 3;
+        }
+        if (gens.rLipid > 3)
+        {
+            gens.rLipid = 3;
+        }
+        if (gens.rKrioprotector > 3)
+        {
+            gens.rKrioprotector = 3;
+        }
+        if (gens.rGigantizm > 3)
+        {
+            gens.rGigantizm = 3;
+        }
+        if (gens.rSliz > 3)
+        {
+            gens.rSliz = 3;
+        }
+        if (gens.rPancer > 3)
+        {
+            gens.rPancer = 3;
+        }
+        if (gens.rEcholocatia > 3)
+        {
+            gens.rEcholocatia = 3;
+        }
+        if (gens.rHemoreceptor > 3)
+        {
+            gens.rHemoreceptor = 3; 
+        }
+        if (gens.rPhotoreceptor > 3)
+        {
+            gens.rPhotoreceptor = 3; 
+        }
+        if (gens.rMechanoreceptor > 3)
+        {
+            gens.rMechanoreceptor = 3;
+        }
+        if (gens.rElectroreceptor > 3)
+        {
+            gens.rElectroreceptor = 3;
+        }
+        if (gens.rRedPigment > 3)
+        {
+            gens.rRedPigment = 3;
+        }
+        if (gens.rProzrachnost > 3)
+        {
+            gens.rProzrachnost = 3; 
+        }
+        if (gens.rChernyyPigment > 3)
+        {
+            gens.rChernyyPigment = 3; 
+        }
+        if (gens.rMimicria > 3)
+        {
+            gens.rMimicria = 3; 
+        }
+        if (gens.rLuminiscencia > 3)
+        {
+            gens.rLuminiscencia = 3; 
+        }
+        if (gens.rToxiny > 3)
+        {
+            gens.rToxiny = 3; 
+        }
+        if (gens.rRegeneration > 3)
+        {
+            gens.rRegeneration = 3;
+        }
+        if (gens.rEvisceration > 3)
+        {
+            gens.rEvisceration = 3; 
+        }
+        if (gens.rPedicellariy > 3)
+        {
+            gens.rPedicellariy = 3; 
+        }
+        if (gens.rPrisosky > 3)
+        {
+            gens.rPrisosky = 3; 
+        }
+        if (gens.rChernMeshok > 3)
+        {
+            gens.rChernMeshok = 3;
+        }
+        if (gens.rCuvierovi > 3)
+        {
+            gens.rCuvierovi = 3;
+        }
+        if (gens.rColloblasty > 3)
+        {
+            gens.rColloblasty = 3; 
+        }
+        if (gens.rCirri > 3)
+        {
+            gens.rCirri = 3; 
+        }
+        if (gens.rPlavniki > 3)
+        {
+            gens.rPlavniki = 3; 
+        }
+        if (gens.rImmunitet > 3)
+        {
+            gens.rImmunitet = 3; 
+        }
+        if (gens.rZuby > 3)
+        {
+            gens.rZuby = 3; 
+        }
+        if (gens.rDopPolost > 3)
+        {
+            gens.rDopPolost = 3; 
+        }
+        if (gens.rDopEnergia > 3)
+        {
+            gens.rDopEnergia = 3;
+        }
+        if (gens.rPheromones > 3)
+        {
+            gens.rPheromones = 3; 
+        }
+        if (gens.rDegradation > 3)
+        {
+            gens.rDegradation = 3; 
+        }
+        if (gens.rUskorennoeRazvitie > 3)
+        {
+            gens.rUskorennoeRazvitie = 3;
+        }
+        if (gens.rMagnetic > 3)
+        {
+            gens.rMagnetic = 3; 
+        }
+
+        // читаем гены, насколько они уже прокачаны
+        gens.pStatocyst = PlayerPrefs.GetFloat("pStatocyst");
+        gens.pHydropora = PlayerPrefs.GetFloat("pHydropora");
+        gens.pOsmolit = PlayerPrefs.GetFloat("pOsmolit");
+        gens.pLipid = PlayerPrefs.GetFloat("pLipid");
+        gens.pKrioprotector = PlayerPrefs.GetFloat("pKrioprotector");
+        gens.pGigantizm = PlayerPrefs.GetFloat("pGigantizm");
+        gens.pSliz = PlayerPrefs.GetFloat("pSliz");
+        gens.pPancer = PlayerPrefs.GetFloat("pPancer");
+        gens.pEcholocatia = PlayerPrefs.GetFloat("pEcholocatia");
+        gens.pHemoreceptor = PlayerPrefs.GetFloat("pHemoreceptor");
+        gens.pPhotoreceptor = PlayerPrefs.GetFloat("pPhotoreceptor");
+        gens.pMechanoreceptor = PlayerPrefs.GetFloat("pMechanoreceptor");
+        gens.pElectroreceptor = PlayerPrefs.GetFloat("pElectroreceptor");
+        gens.pRedPigment = PlayerPrefs.GetFloat("pRedPigment");
+        gens.pProzrachnost = PlayerPrefs.GetFloat("pProzrachnost");
+        gens.pChernyyPigment = PlayerPrefs.GetFloat("pChernyyPigment");
+        gens.pMimicria = PlayerPrefs.GetFloat("pMimicria");
+        gens.pLuminiscencia = PlayerPrefs.GetFloat("pLuminiscencia");
+        gens.pToxiny = PlayerPrefs.GetFloat("pToxiny");
+        gens.pRegeneration = PlayerPrefs.GetFloat("pRegeneration");
+        gens.pEvisceration = PlayerPrefs.GetFloat("pEvisceration");
+        gens.pPedicellariy = PlayerPrefs.GetFloat("pPedicellariy");
+        gens.pPrisosky = PlayerPrefs.GetFloat("pPrisosky");
+        gens.pChernMeshok = PlayerPrefs.GetFloat("pChernMeshok");
+        gens.pCuvierovi = PlayerPrefs.GetFloat("pCuvierovi");
+        gens.pColloblasty = PlayerPrefs.GetFloat("pColloblasty");
+        gens.pCirri = PlayerPrefs.GetFloat("pCirri");
+        gens.pPlavniki = PlayerPrefs.GetFloat("pPlavniki");
+        gens.pImmunitet = PlayerPrefs.GetFloat("pImmunitet");
+        gens.pZuby = PlayerPrefs.GetFloat("pZuby");
+        gens.pDopPolost = PlayerPrefs.GetFloat("pDopPolost");
+        gens.pDopEnergia = PlayerPrefs.GetFloat("pDopEnergia");
+        gens.pPheromones = PlayerPrefs.GetFloat("pPheromones");
+        gens.pDegradation = PlayerPrefs.GetFloat("pDegradation");
+        gens.pUskorennoeRazvitie = PlayerPrefs.GetFloat("pUskorennoeRazvitie");
+        gens.pMagnetic = PlayerPrefs.GetFloat("pMagnetic");
+
+        // читаем гены, которые деградировали в катке
+        gens.dStatocyst = PlayerPrefs.GetFloat("dStatocyst");
+        gens.dHydropora = PlayerPrefs.GetFloat("dHydropora");
+        gens.dOsmolit = PlayerPrefs.GetFloat("dOsmolit");
+        gens.dLipid = PlayerPrefs.GetFloat("dLipid");
+        gens.dKrioprotector = PlayerPrefs.GetFloat("dKrioprotector");
+        gens.dGigantizm = PlayerPrefs.GetFloat("dGigantizm");
+        gens.dSliz = PlayerPrefs.GetFloat("dSliz");
+        gens.dPancer = PlayerPrefs.GetFloat("dPancer");
+        gens.dEcholocatia = PlayerPrefs.GetFloat("dEcholocatia");
+        gens.dHemoreceptor = PlayerPrefs.GetFloat("dHemoreceptor");
+        gens.dPhotoreceptor = PlayerPrefs.GetFloat("dPhotoreceptor");
+        gens.dMechanoreceptor = PlayerPrefs.GetFloat("dMechanoreceptor");
+        gens.dElectroreceptor = PlayerPrefs.GetFloat("dElectroreceptor");
+        gens.dRedPigment = PlayerPrefs.GetFloat("dRedPigment");
+        gens.dProzrachnost = PlayerPrefs.GetFloat("dProzrachnost");
+        gens.dChernyyPigment = PlayerPrefs.GetFloat("dChernyyPigment");
+        gens.dMimicria = PlayerPrefs.GetFloat("dMimicria");
+        gens.dLuminiscencia = PlayerPrefs.GetFloat("dLuminiscencia");
+        gens.dToxiny = PlayerPrefs.GetFloat("dToxiny");
+        gens.dRegeneration = PlayerPrefs.GetFloat("dRegeneration");
+        gens.dEvisceration = PlayerPrefs.GetFloat("dEvisceration");
+        gens.dPedicellariy = PlayerPrefs.GetFloat("dPedicellariy");
+        gens.dPrisosky = PlayerPrefs.GetFloat("dPrisosky");
+        gens.dChernMeshok = PlayerPrefs.GetFloat("dChernMeshok");
+        gens.dCuvierovi = PlayerPrefs.GetFloat("dCuvierovi");
+        gens.dColloblasty = PlayerPrefs.GetFloat("dColloblasty");
+        gens.dCirri = PlayerPrefs.GetFloat("dCirri");
+        gens.dPlavniki = PlayerPrefs.GetFloat("dPlavniki");
+        gens.dImmunitet = PlayerPrefs.GetFloat("dImmunitet");
+        gens.dZuby = PlayerPrefs.GetFloat("dZuby");
+        gens.dDopPolost = PlayerPrefs.GetFloat("dDopPolost");
+        gens.dDopEnergia = PlayerPrefs.GetFloat("dDopEnergia");
+        gens.dPheromones = PlayerPrefs.GetFloat("dPheromones");
+        gens.dDegradation = PlayerPrefs.GetFloat("dDegradation");
+        gens.dUskorennoeRazvitie = PlayerPrefs.GetFloat("dUskorennoeRazvitie");
+        gens.dMagnetic = PlayerPrefs.GetFloat("dMagnetic");
+
+        // ограничиваем найденные гены до доступных
+        if (gens.rStatocyst + gens.pStatocyst > 3)
+        {
+            gens.rStatocyst = 3 - gens.pStatocyst;
+        }
+        if (gens.rHydropora + gens.pHydropora > 3)
+        {
+            gens.rHydropora = 3 - gens.pHydropora;
+        }
+        if (gens.rOsmolit + gens.pOsmolit > 3)
+        {
+            gens.rOsmolit = 3 - gens.pOsmolit;
+        }
+        if (gens.rLipid + gens.pLipid > 3)
+        {
+            gens.rLipid = 3 - gens.pLipid;
+        }
+        if (gens.rKrioprotector + gens.pKrioprotector > 3)
+        {
+            gens.rKrioprotector = 3 - gens.pKrioprotector;
+        }
+        if (gens.rGigantizm + gens.pGigantizm > 3)
+        {
+            gens.rGigantizm = 3 - gens.pGigantizm;
+        }
+        if (gens.rSliz + gens.pSliz > 3)
+        {
+            gens.rSliz = 3 - gens.pSliz;
+        }
+        if (gens.rPancer + gens.pPancer > 3)
+        {
+            gens.rPancer = 3 - gens.pPancer;
+        }
+        if (gens.rEcholocatia + gens.pEcholocatia > 3)
+        {
+            gens.rEcholocatia = 3 - gens.pEcholocatia;
+        }
+        if (gens.rHemoreceptor + gens.pHemoreceptor > 3)
+        {
+            gens.rHemoreceptor = 3 - gens.pHemoreceptor;
+        }
+        if (gens.rPhotoreceptor + gens.pPhotoreceptor > 3)
+        {
+            gens.rPhotoreceptor = 3 - gens.pPhotoreceptor;
+        }
+        if (gens.rMechanoreceptor + gens.pMechanoreceptor > 3)
+        {
+            gens.rMechanoreceptor = 3 - gens.pMechanoreceptor;
+        }
+        if (gens.rElectroreceptor + gens.pElectroreceptor > 3)
+        {
+            gens.rElectroreceptor = 3 - gens.pElectroreceptor;
+        }
+        if (gens.rRedPigment + gens.pRedPigment > 3)
+        {
+            gens.rRedPigment = 3 - gens.pRedPigment;
+        }
+        if (gens.rProzrachnost + gens.pProzrachnost > 3)
+        {
+            gens.rProzrachnost = 3 - gens.pProzrachnost;
+        }
+        if (gens.rChernyyPigment + gens.pChernyyPigment > 3)
+        {
+            gens.rChernyyPigment = 3 - gens.pChernyyPigment;
+        }
+        if (gens.rMimicria + gens.pMimicria > 3)
+        {
+            gens.rMimicria = 3 - gens.pMimicria;
+        }
+        if (gens.rLuminiscencia + gens.pLuminiscencia > 3)
+        {
+            gens.rLuminiscencia = 3 - gens.pLuminiscencia;
+        }
+        if (gens.rToxiny + gens.pToxiny > 3)
+        {
+            gens.rToxiny = 3 - gens.pToxiny;
+        }
+        if (gens.rRegeneration + gens.pRegeneration > 3)
+        {
+            gens.rRegeneration = 3 - gens.pRegeneration;
+        }
+        if (gens.rEvisceration + gens.pEvisceration > 3)
+        {
+            gens.rEvisceration = 3 - gens.pEvisceration;
+        }
+        if (gens.rPedicellariy + gens.pPedicellariy > 3)
+        {
+            gens.rPedicellariy = 3 - gens.pPedicellariy;
+        }
+        if (gens.rPrisosky + gens.pPrisosky > 3)
+        {
+            gens.rPrisosky = 3 - gens.pPrisosky;
+        }
+        if (gens.rChernMeshok + gens.pChernMeshok > 3)
+        {
+            gens.rChernMeshok = 3 - gens.pChernMeshok;
+        }
+        if (gens.rCuvierovi + gens.pCuvierovi > 3)
+        {
+            gens.rCuvierovi = 3 - gens.pCuvierovi;
+        }
+        if (gens.rColloblasty + gens.pColloblasty > 3)
+        {
+            gens.rColloblasty = 3 - gens.pColloblasty;
+        }
+        if (gens.rCirri + gens.pCirri > 3)
+        {
+            gens.rCirri = 3 - gens.pCirri;
+        }
+        if (gens.rPlavniki + gens.pPlavniki > 3)
+        {
+            gens.rPlavniki = 3 - gens.pPlavniki;
+        }
+        if (gens.rImmunitet + gens.pImmunitet > 3)
+        {
+            gens.rImmunitet = 3 - gens.pImmunitet;
+        }
+        if (gens.rZuby + gens.pZuby > 3)
+        {
+            gens.rZuby = 3 - gens.pZuby;
+        }
+        if (gens.rDopPolost + gens.pDopPolost > 3)
+        {
+            gens.rDopPolost = 3 - gens.pDopPolost;
+        }
+        if (gens.rDopEnergia + gens.pDopEnergia > 3)
+        {
+            gens.rDopEnergia = 3 - gens.pDopEnergia;
+        }
+        if (gens.rPheromones + gens.pPheromones > 3)
+        {
+            gens.rPheromones = 3 - gens.pPheromones;
+        }
+        if (gens.rDegradation + gens.pDegradation > 3)
+        {
+            gens.rDegradation = 3 - gens.pDegradation;
+        }
+        if (gens.rUskorennoeRazvitie + gens.pUskorennoeRazvitie > 3)
+        {
+            gens.rUskorennoeRazvitie = 3 - gens.pUskorennoeRazvitie;
+        }
+        if (gens.rMagnetic + gens.pMagnetic > 3)
+        {
+            gens.rMagnetic = 3 - gens.pMagnetic;
+        }
+
+
+
+        // контролирует, всё ли на сцене правильно включилось
+        skillSpesholInd.SetActive(false);
+        slotsBlokers1Tut.SetActive(true);
+        genButton.SetActive(true);
+        slotsBlokers2Tut.SetActive(true);
+        slotVragatut.SetActive(true);
+        slotsTut.SetActive(true);
+        moverGgSlots.SetActive(true);
+        moverEnSlots.SetActive(true);
+        moverGgBlocks.SetActive(true);
+        moverEnBlocks.SetActive(true);
+        indicatorsTut.SetActive(true);
+        MainMenuTut.SetActive(true);
+        spawnerTut.SetActive(true);
+        levelerTut.SetActive(true);
+        MovementTut.SetActive(true);
+        GensBackTut.SetActive(false);
+        skills.SetActive(false);
+        skills2.SetActive(false);
+        GensDesriptionsTut.SetActive(false);
+        GensKletiki.SetActive(false);
+        Tab1.SetActive(false);
+        Tab2.SetActive(false);
+        Tab3.SetActive(false);
+        Tab4.SetActive(false);
+        Tab5.SetActive(false);
+        gens.currentRs = gens.rStatocyst + gens.rHydropora + gens.rOsmolit + gens.rLipid + gens.rKrioprotector + gens.rGigantizm + gens.rSliz + gens.rPancer + gens.rEcholocatia + gens.rHemoreceptor + gens.rPhotoreceptor + gens.rMechanoreceptor + gens.rElectroreceptor + gens.rRedPigment + gens.rProzrachnost + gens.rChernyyPigment + gens.rMimicria + gens.rLuminiscencia + gens.rToxiny + gens.rRegeneration + gens.rEvisceration + gens.rPedicellariy + gens.rPrisosky + gens.rChernMeshok + gens.rCuvierovi + gens.rColloblasty + gens.rCirri + gens.rPlavniki + gens.rImmunitet + gens.rZuby + gens.rDopPolost + gens.rDopEnergia + gens.rPheromones + gens.rDegradation + gens.rUskorennoeRazvitie + gens.rMagnetic;
+        if (gens.currentRs > 0)
+        {
+            // gens.indicatorText.text = "!";
+            gens.indicatorGenes.SetActive(true);
+            gens.pulsation = true;
+        }
+        else
+        {
+            gens.indicatorGenes.SetActive(false);
+            gens.pulsation = false;
+        }
+    }
+
+    public void Update()
+    {
+        // ловит игрока на подходе к катке, если он ничего не вкачал
+        if (distancePoints.distance <= 5050 && distancePoints.distance >= 5025 && gens.SpritsUsed == false && poimangenami == false)
+        {
+            if (gens.currentSprits > 0 || gens.currentRs > 0)
+            {
+                poimangenami = true;
+                nepodgotovlennyyIgrok();
+            }
+        }
+        // меняет внешность до катки
+        if (distancePoints.distance <= 5050)
+        {
+            if (gens.totalreads == 0f)
+            {
+                gensknopka.transform.position = new Vector2 (13000f, -500f);
+            }
+
+
+            // анимирует воду
+
+            if (kolebanie < 4f && ziklvody == false)
+            {
+                kolebanie += Time.deltaTime;
+            }
+            else
+            {
+                ziklvody = true;
+            }
+            if (kolebanie > -4f && ziklvody)
+            {
+
+                kolebanie -= Time.deltaTime;
+            }
+            else
+            {
+                ziklvody = false;
+            }
+
+            voda.transform.position = new Vector3(Mathf.Lerp(voda.transform.position.x, voda.transform.position.x + kolebanie, 0.3f * Time.deltaTime), voda.transform.position.y, voda.transform.position.z);
+            voda2.transform.position = new Vector3(Mathf.Lerp(voda2.transform.position.x, voda2.transform.position.x - kolebanie, 0.3f * Time.deltaTime), voda2.transform.position.y, voda2.transform.position.z);
+            voda3.transform.position = new Vector3(Mathf.Lerp(voda3.transform.position.x, voda3.transform.position.x - kolebanie, 0.3f * Time.deltaTime), voda3.transform.position.y, voda3.transform.position.z);
+
+
+            // основные части
+            anime.nekpart.SetActive(true);
+            anime.headpart.SetActive(true);
+            anime.bedrapart.SetActive(true);
+            anime.chestpart.SetActive(true);
+            anime.bellypart.SetActive(true);
+            anime.legspart.SetActive(true);
+            anime.armpart.SetActive(true);
+            anime.shouldpart.SetActive(true);
+            anime.armpart2.SetActive(true);
+            anime.shouldpart2.SetActive(true);
+            anime.headstart.SetActive(true);
+
+            // голова
+            if (gens.pElectroreceptor == 1)
+            {
+                anime.electrobashka1.SetActive(true);
+                anime.electrobashka123.SetActive(false);
+            }
+            else if (gens.pElectroreceptor > 1)
+            {
+                anime.electrobashka123.SetActive(true);
+                anime.electrobashka1.SetActive(false);
+            }
+            else
+            {
+                anime.electrobashka123.SetActive(false);
+                anime.electrobashka1.SetActive(false);
+            }
+            if (gens.pHydropora == 3)
+            {
+                anime.hydroorbaska.SetActive(true);
+            }
+            else
+            {
+                anime.hydroorbaska.SetActive(false);
+            }
+
+            if (gens.pHemoreceptor == 1)
+            {
+                anime.hemobaska1.SetActive(true);
+                anime.hemobaska2.SetActive(false);
+                anime.hemobaska3.SetActive(false);
+            }
+            else if (gens.pHemoreceptor == 2)
+            {
+                anime.hemobaska1.SetActive(false);
+                anime.hemobaska2.SetActive(true);
+                anime.hemobaska3.SetActive(false);
+            }
+            else if (gens.pHemoreceptor == 3)
+            {
+                anime.hemobaska3.SetActive(true);
+                anime.hemobaska2.SetActive(false);
+                anime.hemobaska1.SetActive(false);
+            }
+            else
+            {
+                anime.hemobaska1.SetActive(false);
+                anime.hemobaska2.SetActive(false);
+                anime.hemobaska3.SetActive(false);
+            }
+
+            if (gens.pPhotoreceptor <= 1)
+            {
+                anime.eyestart1.SetActive(true);
+                anime.eyestart2.SetActive(false);
+                anime.eyestart3.SetActive(false);
+            }
+            else if (gens.pPhotoreceptor == 2)
+            {
+                anime.eyestart2.SetActive(true);
+                anime.eyestart1.SetActive(false);
+                anime.eyestart3.SetActive(false);
+            }
+            else if (gens.pPhotoreceptor == 3)
+            {
+                anime.eyestart3.SetActive(true);
+                anime.eyestart1.SetActive(false);
+                anime.eyestart2.SetActive(false);
+            }
+
+            if (gens.pMechanoreceptor == 1)
+            {
+                anime.mechabaska1.SetActive(true);
+                anime.mechabaska2.SetActive(false);
+                anime.mechabaska3.SetActive(false);
+            }
+            else if (gens.pMechanoreceptor == 2)
+            {
+                anime.mechabaska2.SetActive(true);
+                anime.mechabaska1.SetActive(false);
+                anime.mechabaska3.SetActive(false);
+            }
+            else if (gens.pMechanoreceptor == 3)
+            {
+                anime.mechabaska1.SetActive(false);
+                anime.mechabaska2.SetActive(false);
+                anime.mechabaska3.SetActive(true);
+            }
+            else
+            {
+                anime.mechabaska1.SetActive(false);
+                anime.mechabaska2.SetActive(false);
+                anime.mechabaska3.SetActive(false);
+            }
+
+            if (gens.pPancer == 1)
+            {
+                anime.headpancer12.SetActive(true);
+                anime.headpancer3.SetActive(false);
+            }
+            else if (gens.pPancer > 1)
+            {
+                anime.headpancer3.SetActive(true);
+                anime.headpancer12.SetActive(false);
+            }
+            else
+            {
+                anime.headpancer3.SetActive(false);
+                anime.headpancer12.SetActive(false);
+            }
+
+            if (gens.pZuby == 1)
+            {
+                anime.zuby1.SetActive(true);
+                anime.zuby2.SetActive(false);
+                anime.zuby3.SetActive(false);
+            }
+            else if (gens.pZuby == 2)
+            {
+                anime.zuby2.SetActive(true);
+                anime.zuby1.SetActive(false);
+                anime.zuby3.SetActive(false);
+            }
+            else if (gens.pZuby == 3)
+            {
+                anime.zuby3.SetActive(true);
+                anime.zuby2.SetActive(false);
+                anime.zuby1.SetActive(false);
+            }
+            else
+            {
+                anime.zuby3.SetActive(false);
+                anime.zuby2.SetActive(false);
+                anime.zuby1.SetActive(false);
+            }
+
+            if (gens.pSliz == 2 || gens.pSliz == 1)
+            {
+                anime.sliz2.SetActive(false);
+                anime.sliz1.SetActive(true);
+                anime.sliz3.SetActive(false);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.sliz3.SetActive(true);
+                anime.sliz2.SetActive(false);
+                anime.sliz1.SetActive(false);
+            }
+            else
+            {
+                anime.sliz3.SetActive(false);
+                anime.sliz2.SetActive(false);
+                anime.sliz1.SetActive(false);
+            }
+
+
+            if (gens.pLuminiscencia == 1)
+            {
+                anime.lumini1.SetActive(true);
+                anime.lumini2.SetActive(false);
+                anime.lumini3.SetActive(false);
+            }
+            else if (gens.pLuminiscencia == 2)
+            {
+                anime.lumini2.SetActive(true);
+                anime.lumini1.SetActive(false);
+                anime.lumini3.SetActive(false);
+            }
+            else if (gens.pLuminiscencia == 3)
+            {
+                anime.lumini3.SetActive(true);
+                anime.lumini2.SetActive(false);
+                anime.lumini1.SetActive(false);
+            }
+            else
+            {
+                anime.lumini3.SetActive(false);
+                anime.lumini2.SetActive(false);
+                anime.lumini1.SetActive(false);
+            }
+
+            // шея
+            anime.nekstart.SetActive(true);
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.nekpancer12.SetActive(true);
+                anime.nekpancer3.SetActive(false);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.nekpancer3.SetActive(true);
+                anime.nekpancer12.SetActive(false);
+            }
+            else
+            {
+                anime.nekpancer3.SetActive(false);
+                anime.nekpancer12.SetActive(false);
+            }
+
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.neksliz12.SetActive(true);
+                anime.neksliz3.SetActive(false);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.neksliz3.SetActive(true);
+                anime.neksliz12.SetActive(false);
+            }
+            else
+            {
+                anime.neksliz3.SetActive(false);
+                anime.neksliz12.SetActive(false);
+            }
+            if (gens.pHydropora == 3)
+            {
+                anime.nekhydropora.SetActive(true);
+            }
+            else
+            {
+                anime.nekhydropora.SetActive(false);
+            }
+            anime.seccheststart.SetActive(true);
+            // тело, заплыв
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.secchestpancer12.SetActive(true);
+                anime.secchestpancer3.SetActive(false);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.secchestpancer3.SetActive(true);
+                anime.secchestpancer12.SetActive(false);
+            }
+            else
+            {
+                anime.secchestpancer3.SetActive(false);
+                anime.secchestpancer12.SetActive(false);
+            }
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.secchestsliz12.SetActive(true);
+                anime.secchestsliz3.SetActive(false);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.secchestsliz3.SetActive(true);
+                anime.secchestsliz12.SetActive(false);
+            }
+            else
+            {
+                anime.secchestsliz3.SetActive(false);
+                anime.secchestsliz12.SetActive(false);
+            }
+            // пузо
+            anime.bellystart.SetActive(true);
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.bellychesh12.SetActive(true);
+                anime.bellychesh3.SetActive(false);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.bellychesh3.SetActive(true);
+                anime.bellychesh12.SetActive(false);
+            }
+            else
+            {
+                anime.bellychesh3.SetActive(false);
+                anime.bellychesh12.SetActive(false);
+            }
+
+            if (gens.pChernMeshok == 1)
+            {
+                anime.chern1.SetActive(true);
+                anime.chern2.SetActive(false);
+                anime.chern3.SetActive(false);
+            }
+            else if (gens.pChernMeshok == 2)
+            {
+                anime.chern2.SetActive(true);
+                anime.chern1.SetActive(false);
+                anime.chern3.SetActive(false);
+            }
+            else if (gens.pChernMeshok == 3)
+            {
+                anime.chern3.SetActive(true);
+                anime.chern2.SetActive(false);
+                anime.chern1.SetActive(false);
+            }
+            else
+            {
+                anime.chern3.SetActive(false);
+                anime.chern2.SetActive(false);
+                anime.chern1.SetActive(false);
+            }
+
+            if (gens.pEvisceration == 1)
+            {
+                anime.evisc1.SetActive(true);
+                anime.evisc2.SetActive(false);
+                anime.evisc3.SetActive(false);
+            }
+            else if (gens.pEvisceration == 2)
+            {
+                anime.evisc2.SetActive(true);
+                anime.evisc1.SetActive(false);
+                anime.evisc3.SetActive(false);
+            }
+            else if (gens.pEvisceration == 3)
+            {
+                anime.evisc3.SetActive(true);
+                anime.evisc2.SetActive(false);
+                anime.evisc1.SetActive(false);
+            }
+            else
+            {
+                anime.evisc3.SetActive(false);
+                anime.evisc2.SetActive(false);
+                anime.evisc1.SetActive(false);
+            }
+
+            if (gens.pCuvierovi == 1 || gens.pCuvierovi == 2)
+            {
+                anime.kuvier12.SetActive(true);
+                anime.kuvier3.SetActive(false);
+            }
+            else if (gens.pCuvierovi == 3)
+            {
+                anime.kuvier3.SetActive(true);
+                anime.kuvier12.SetActive(false);
+            }
+            else
+            {
+                anime.kuvier3.SetActive(false);
+                anime.kuvier12.SetActive(false);
+            }
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.bellystartsliz12.SetActive(true);
+                anime.bellystartneksliz3.SetActive(false);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.bellystartneksliz3.SetActive(true);
+                anime.bellystartsliz12.SetActive(false);
+            }
+            else
+            {
+                anime.bellystartneksliz3.SetActive(false);
+                anime.bellystartsliz12.SetActive(false);
+            }
+
+            if (gens.pDopPolost == 1)
+            {
+                anime.polost1.SetActive(true);
+                anime.polost2.SetActive(false);
+                anime.polost3.SetActive(false);
+            }
+            else if (gens.pDopPolost == 2)
+            {
+                anime.polost2.SetActive(true);
+                anime.polost1.SetActive(false);
+                anime.polost3.SetActive(false);
+            }
+            else if (gens.pDopPolost == 3)
+            {
+                anime.polost3.SetActive(true);
+                anime.polost1.SetActive(false);
+                anime.polost2.SetActive(false);
+            }
+            else
+            {
+                anime.polost3.SetActive(false);
+                anime.polost1.SetActive(false);
+                anime.polost2.SetActive(false);
+            }
+
+            if (gens.pDopEnergia == 1)
+            {
+                anime.zhir1.SetActive(true);
+                anime.zhir2.SetActive(false);
+                anime.zhir3.SetActive(false);
+            }
+            else if (gens.pDopEnergia == 2)
+            {
+                anime.zhir2.SetActive(true);
+                anime.zhir1.SetActive(false);
+                anime.zhir3.SetActive(false);
+            }
+            else if (gens.pDopEnergia == 3)
+            {
+                anime.zhir3.SetActive(true);
+                anime.zhir2.SetActive(false);
+                anime.zhir1.SetActive(false);
+            }
+            else
+            {
+                anime.zhir1.SetActive(false);
+                anime.zhir2.SetActive(false);
+                anime.zhir3.SetActive(false);
+            }
+            anime.bedrastart.SetActive(true);
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.startbedrachesh12.SetActive(true);
+                anime.startbedrachesh3.SetActive(false);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.startbedrachesh3.SetActive(true);
+                anime.startbedrachesh12.SetActive(false);
+            }
+            else
+            {
+                anime.startbedrachesh3.SetActive(false);
+                anime.startbedrachesh12.SetActive(false);
+            }
+
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.startbedrasliz12.SetActive(true);
+                anime.startbedrasliz3.SetActive(false);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.startbedrasliz3.SetActive(true);
+                anime.startbedrasliz12.SetActive(false);
+            }
+            else
+            {
+                anime.startbedrasliz12.SetActive(false);
+                anime.startbedrasliz3.SetActive(false);
+            }
+            if (gens.pPlavniki == 1 || gens.pPlavniki == 2)
+            {
+                anime.startbedrafins12.SetActive(true);
+                anime.startbedrafins3.SetActive(false);
+            }
+            else if (gens.pPlavniki == 3)
+            {
+                anime.startbedrafins3.SetActive(true);
+                anime.startbedrafins12.SetActive(false);
+            }
+            else
+            {
+                anime.startbedrafins3.SetActive(false);
+                anime.startbedrafins12.SetActive(false);
+            }
+            // хвост
+            if (gens.pPlavniki == 0)
+            {
+                anime.legsstart.SetActive(true);
+                anime.legsstartfins12.SetActive(false);
+                anime.legsstartfins3.SetActive(false);
+            }
+            else if (gens.pPlavniki == 1 || gens.pPlavniki == 2)
+            {
+                anime.legsstart.SetActive(false);
+                anime.legsstartfins12.SetActive(true);
+                anime.legsstartfins3.SetActive(false);
+            }
+            else if (gens.pPlavniki == 3)
+            {
+                anime.legsstart.SetActive(false);
+                anime.legsstartfins12.SetActive(false);
+                anime.legsstartfins3.SetActive(true);
+            }
+            else
+            {
+                anime.legsstart.SetActive(false);
+                anime.legsstartfins12.SetActive(false);
+                anime.legsstartfins3.SetActive(false);
+            }
+            // щупальца, заплыв
+            if (gens.pPrisosky == 2)
+            {
+                anime.startprisoski2.SetActive(true);
+                anime.startprisoski2left.SetActive(true);
+                anime.startprisoski3.SetActive(false);
+                anime.startprisoski3left.SetActive(false);
+            }
+            else if (gens.pPrisosky == 3)
+            {
+                anime.startprisoski3.SetActive(true);
+                anime.startprisoski3left.SetActive(true);
+                anime.startprisoski2.SetActive(false);
+                anime.startprisoski2left.SetActive(false);
+            }
+            else
+            {
+                anime.startprisoski3.SetActive(false);
+                anime.startprisoski3left.SetActive(false);
+                anime.startprisoski2.SetActive(false);
+                anime.startprisoski2left.SetActive(false);
+            }
+            // плечи
+            anime.shoulderstart.SetActive(true);
+            anime.shoulderstart2.SetActive(true);
+
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.startshoulderpancer12.SetActive(true);
+                anime.startrightshoulderpancer12.SetActive(true);
+                anime.startshoulderpancer3.SetActive(false);
+                anime.startrightshoulderpancer3.SetActive(false);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.startshoulderpancer3.SetActive(true);
+                anime.startrightshoulderpancer3.SetActive(true);
+                anime.startshoulderpancer12.SetActive(false);
+                anime.startrightshoulderpancer12.SetActive(false);
+            }
+            else
+            {
+                anime.startshoulderpancer3.SetActive(false);
+                anime.startrightshoulderpancer3.SetActive(false);
+                anime.startshoulderpancer12.SetActive(false);
+                anime.startrightshoulderpancer12.SetActive(false);
+            }
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.startshouldersliz12.SetActive(true);
+                anime.startrightshouldersliz12.SetActive(true);
+                anime.startshouldersliz3.SetActive(false);
+                anime.startrightshouldersliz3.SetActive(false);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.startshouldersliz3.SetActive(true);
+                anime.startrightshouldersliz3.SetActive(true);
+                anime.startshouldersliz12.SetActive(false);
+                anime.startrightshouldersliz12.SetActive(false);
+            }
+            else
+            {
+                anime.startshouldersliz12.SetActive(false);
+                anime.startrightshouldersliz12.SetActive(false);
+                anime.startshouldersliz3.SetActive(false);
+                anime.startrightshouldersliz3.SetActive(false);
+            }
+            // ручки
+            if (gens.pPedicellariy == 0)
+            {
+                anime.righthandstart.SetActive(true);
+                anime.rightarmpedic1.SetActive(false);
+                anime.rightarmpedic2.SetActive(false);
+                anime.rightarmpedic3.SetActive(false);
+            }
+            else if (gens.pPedicellariy == 1)
+            {
+                anime.righthandstart.SetActive(false);
+                anime.rightarmpedic1.SetActive(true);
+                anime.rightarmpedic2.SetActive(false);
+                anime.rightarmpedic3.SetActive(false);
+            }
+            else if (gens.pPedicellariy == 2)
+            {
+                anime.righthandstart.SetActive(false);
+                anime.rightarmpedic1.SetActive(false);
+                anime.rightarmpedic2.SetActive(true);
+                anime.rightarmpedic3.SetActive(false);
+            }
+            else if (gens.pPedicellariy == 3)
+            {
+                anime.righthandstart.SetActive(false);
+                anime.rightarmpedic1.SetActive(false);
+                anime.rightarmpedic2.SetActive(false);
+                anime.rightarmpedic3.SetActive(true);
+            }
+            else
+            {
+                anime.righthandstart.SetActive(false);
+                anime.rightarmpedic1.SetActive(false);
+                anime.rightarmpedic2.SetActive(false);
+                anime.rightarmpedic3.SetActive(false);
+            }
+            if (gens.pCirri == 0)
+            {
+                anime.lefthandstart.SetActive(true);
+                anime.leftarmcirr1.SetActive(false);
+                anime.leftarmcirr2.SetActive(false);
+                anime.leftarmcirr3.SetActive(false);
+            }
+            else if (gens.pCirri == 1)
+            {
+                anime.leftarmcirr1.SetActive(true);
+                anime.lefthandstart.SetActive(false);
+
+                anime.leftarmcirr2.SetActive(false);
+                anime.leftarmcirr3.SetActive(false);
+            }
+            else if (gens.pCirri == 2)
+            {
+                anime.leftarmcirr2.SetActive(true);
+                anime.lefthandstart.SetActive(false);
+                anime.leftarmcirr1.SetActive(false);
+
+                anime.leftarmcirr3.SetActive(false);
+            }
+            else if (gens.pCirri == 3)
+            {
+                anime.leftarmcirr3.SetActive(true);
+                anime.lefthandstart.SetActive(false);
+                anime.leftarmcirr1.SetActive(false);
+                anime.leftarmcirr2.SetActive(false);
+            }
+            else
+            {
+                anime.lefthandstart.SetActive(false);
+                anime.leftarmcirr1.SetActive(false);
+                anime.leftarmcirr2.SetActive(false);
+                anime.leftarmcirr3.SetActive(false);
+            }
+
+
+            // красный
+            if (gens.pRedPigment == 1)
+            {
+                ggcolor = new Color32(150, 95, 96, 255);
+                ggcolorfortransp = new Color32(150, 95, 96, 255);
+                if (gens.pChernyyPigment == 1)
+                {
+                    colorEnd = new Color32(153, 153, 153, 255);
+                }
+                else if (gens.pChernyyPigment == 2)
+                {
+                    colorEnd = new Color32(64, 64, 64, 255);
+                }
+                else if (gens.pChernyyPigment == 3)
+                {
+                    colorEnd = new Color32(39, 39, 39, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pChernyyPigment == 1)
+            {
+                ggcolor = new Color32(153, 153, 153, 255);
+                ggcolorfortransp = new Color32(153, 153, 153, 255);
+                if (gens.pRedPigment == 1)
+                {
+                    colorEnd = new Color32(150, 95, 96, 255);
+                }
+                else if (gens.pRedPigment == 2)
+                {
+                    colorEnd = new Color32(165, 24, 26, 255);
+                }
+                else if (gens.pRedPigment == 3)
+                {
+                    colorEnd = new Color32(114, 15, 16, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pRedPigment == 2)
+            {
+                ggcolor = new Color32(165, 24, 26, 255);
+                ggcolorfortransp = new Color32(165, 24, 26, 255);
+                if (gens.pChernyyPigment == 1)
+                {
+                    colorEnd = new Color32(153, 153, 153, 255);
+                }
+                else if (gens.pChernyyPigment == 2)
+                {
+                    colorEnd = new Color32(64, 64, 64, 255);
+                }
+                else if (gens.pChernyyPigment == 3)
+                {
+                    colorEnd = new Color32(39, 39, 39, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pChernyyPigment == 2)
+            {
+                ggcolor = new Color32(64, 64, 64, 255);
+                ggcolorfortransp = new Color32(64, 64, 64, 255);
+                if (gens.pRedPigment == 1)
+                {
+                    colorEnd = new Color32(150, 95, 96, 255);
+                }
+                else if (gens.pRedPigment == 2)
+                {
+                    colorEnd = new Color32(165, 24, 26, 255);
+                }
+                else if (gens.pRedPigment == 3)
+                {
+                    colorEnd = new Color32(114, 15, 16, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pRedPigment == 3)
+            {
+                ggcolor = new Color32(114, 15, 16, 255);
+                ggcolorfortransp = new Color32(114, 15, 16, 255);
+                if (gens.pChernyyPigment == 1)
+                {
+                    colorEnd = new Color32(153, 153, 153, 255);
+                }
+                else if (gens.pChernyyPigment == 2)
+                {
+                    colorEnd = new Color32(64, 64, 64, 255);
+                }
+                else if (gens.pChernyyPigment == 3)
+                {
+                    colorEnd = new Color32(39, 39, 39, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pChernyyPigment == 3)
+            {
+                ggcolor = new Color32(39, 39, 39, 255);
+                ggcolorfortransp = new Color32(39, 39, 39, 255);
+                if (gens.pRedPigment == 1)
+                {
+                    colorEnd = new Color32(150, 95, 96, 255);
+                }
+                else if (gens.pRedPigment == 2)
+                {
+                    colorEnd = new Color32(165, 24, 26, 255);
+                }
+                else if (gens.pRedPigment == 3)
+                {
+                    colorEnd = new Color32(114, 15, 16, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pMimicria >= 1)
+            {
+                colorStart = ggcolor;
+
+            }
+            if (gens.pMimicria == 2)
+            {
+                duration = 13f;
+            }
+            else if (gens.pMimicria == 3)
+            {
+                duration = 10f;
+            }
+
+            foreach (Renderer tempObject in anime.renderList)
+            {
+                tempObject.material.color = ggcolor;
+            }
+
+            if (gens.pProzrachnost == 3)
+            {
+                ggcolorfortransp.a = 200;
+            }
+            else if (gens.pProzrachnost == 2)
+            {
+                ggcolorfortransp.a = 220;
+            }
+            else if (gens.pProzrachnost == 1)
+            {
+                ggcolorfortransp.a = 240;
+            }
+            else
+            {
+                ggcolorfortransp.a = 255;
+            }
+
+            foreach (Renderer tempObject in anime.renderListProzrachno)
+            {
+                tempObject.material.color = ggcolorfortransp;
+            }
+        }
+
+
+
+        // блокирует движение во время экрана ок
+        if (poimangenami && podtverjdenie.noteBack.activeSelf == true)
+        {
+            player.speed = 0f;
+        }
+
+        // контролирует, всё ли на сцене правильно включилось, когда мы начали катку
+        if (distancePoints.distance >= 5050 && justonce == false)
+        {
+            foreach (GameObject temporObject in parallaxravniai)
+            {
+                temporObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+            }
+
+            
+            foreach (GameObject tempObject in snega)
+            {
+                tempObject.SetActive(true);
+            }
+            gens.currentSprits = 0;
+            gens.forSprits = 0;
+            poimangenami = false;
+            justonce = true;
+            skills.SetActive(true);
+            skills2.SetActive(true);
+            RusalkiTut.SetActive(true);
+            IkraTut.SetActive(true);
+            gens.rStatocyst = 0;
+            gens.rHydropora = 0;
+            gens.rOsmolit = 0;
+            gens.rLipid = 0;
+            gens.rKrioprotector = 0;
+            gens.rGigantizm = 0;
+            gens.rSliz = 0;
+            gens.rPancer = 0;
+            gens.rEcholocatia = 0;
+            gens.rHemoreceptor = 0;
+            gens.rPhotoreceptor = 0;
+            gens.rMechanoreceptor = 0;
+            gens.rElectroreceptor = 0;
+            gens.rRedPigment = 0;
+            gens.rProzrachnost = 0;
+            gens.rChernyyPigment = 0;
+            gens.rMimicria = 0;
+            gens.rLuminiscencia = 0;
+            gens.rToxiny = 0;
+            gens.rRegeneration = 0;
+            gens.rEvisceration = 0;
+            gens.rPedicellariy = 0;
+            gens.rPrisosky = 0;
+            gens.rChernMeshok = 0;
+            gens.rCuvierovi = 0;
+            gens.rColloblasty = 0;
+            gens.rCirri = 0;
+            gens.rPlavniki = 0;
+            gens.rImmunitet = 0;
+            gens.rZuby = 0;
+            gens.rDopPolost = 0;
+            gens.rDopEnergia = 0;
+            gens.rPheromones = 0;
+            gens.rDegradation = 0;
+            gens.rUskorennoeRazvitie = 0;
+            gens.rMagnetic = 0;
+            PlayerPrefs.SetFloat("rStatocyst", 0);
+            PlayerPrefs.SetFloat("rHydropora", 0);
+            PlayerPrefs.SetFloat("rOsmolit", 0);
+            PlayerPrefs.SetFloat("rLipid", 0);
+            PlayerPrefs.SetFloat("rKrioprotector", 0);
+            PlayerPrefs.SetFloat("rGigantizm", 0);
+            PlayerPrefs.SetFloat("rSliz", 0);
+            PlayerPrefs.SetFloat("rPancer", 0);
+            PlayerPrefs.SetFloat("rEcholocatia", 0);
+            PlayerPrefs.SetFloat("rHemoreceptor", 0);
+            PlayerPrefs.SetFloat("rPhotoreceptor", 0);
+            PlayerPrefs.SetFloat("rMechanoreceptor", 0);
+            PlayerPrefs.SetFloat("rElectroreceptor", 0);
+            PlayerPrefs.SetFloat("rRedPigment", 0);
+            PlayerPrefs.SetFloat("rProzrachnost", 0);
+            PlayerPrefs.SetFloat("rChernyyPigment", 0);
+            PlayerPrefs.SetFloat("rMimicria", 0);
+            PlayerPrefs.SetFloat("rLuminiscencia", 0);
+            PlayerPrefs.SetFloat("rToxiny", 0);
+            PlayerPrefs.SetFloat("rRegeneration", 0);
+            PlayerPrefs.SetFloat("rEvisceration", 0);
+            PlayerPrefs.SetFloat("rPedicellariy", 0);
+            PlayerPrefs.SetFloat("rPrisosky", 0);
+            PlayerPrefs.SetFloat("rChernMeshok", 0);
+            PlayerPrefs.SetFloat("rCuvierovi", 0);
+            PlayerPrefs.SetFloat("rColloblasty", 0);
+            PlayerPrefs.SetFloat("rCirri", 0);
+            PlayerPrefs.SetFloat("rPlavniki", 0);
+            PlayerPrefs.SetFloat("rImmunitet", 0);
+            PlayerPrefs.SetFloat("rZuby", 0);
+            PlayerPrefs.SetFloat("rDopPolost", 0);
+            PlayerPrefs.SetFloat("rDopEnergia", 0);
+            PlayerPrefs.SetFloat("rPheromones", 0);
+            PlayerPrefs.SetFloat("rDegradation", 0);
+            PlayerPrefs.SetFloat("rUskorennoeRazvitie", 0);
+            PlayerPrefs.SetFloat("rMagnetic", 0);
+
+            // тут был destroy
+            
+
+            // гены деградируют зависимо от собранных д, д сбрасывается, п запоминается, устанавливается новый рандомный д
+            if (gens.dStatocyst > 0)
+            {
+                gens.pStatocyst -= 1;
+            }
+            if (gens.dHydropora > 0)
+            {
+                gens.pHydropora -= 1;
+            }
+            if (gens.dOsmolit > 0)
+            {
+                gens.pOsmolit -= 1;
+            }
+            if (gens.dLipid > 0)
+            {
+                gens.pLipid -= 1;
+            }
+            if (gens.dKrioprotector > 0)
+            {
+                gens.pKrioprotector -= 1;
+            }
+            if (gens.dGigantizm > 0)
+            {
+                gens.pGigantizm -= 1;
+            }
+            if (gens.dSliz > 0)
+            {
+                gens.pSliz -= 1;
+            }
+            if (gens.dPancer > 0)
+            {
+                gens.pPancer -= 1;
+            }
+            if (gens.dEcholocatia > 0)
+            {
+                gens.pEcholocatia -= 1;
+            }
+            if (gens.dHemoreceptor > 0)
+            {
+                gens.pHemoreceptor -= 1;
+            }
+            if (gens.dPhotoreceptor > 0)
+            {
+                gens.pPhotoreceptor -= 1;
+            }
+            if (gens.dMechanoreceptor > 0)
+            {
+                gens.pMechanoreceptor -= 1;
+            }
+            if (gens.dElectroreceptor > 0)
+            {
+                gens.pElectroreceptor -= 1;
+            }
+            if (gens.dRedPigment > 0)
+            {
+                gens.pRedPigment -= 1;
+            }
+            if (gens.dProzrachnost > 0)
+            {
+                gens.pProzrachnost -= 1;
+            }
+            if (gens.dChernyyPigment > 0)
+            {
+                gens.pChernyyPigment -= 1;
+            }
+            if (gens.dMimicria > 0)
+            {
+                gens.pMimicria -= 1;
+            }
+            if (gens.dLuminiscencia > 0)
+            {
+                gens.pLuminiscencia -= 1;
+            }
+            if (gens.dToxiny > 0)
+            {
+                gens.pToxiny -= 1;
+            }
+            if (gens.dRegeneration > 0)
+            {
+                gens.pRegeneration -= 1;
+            }
+            if (gens.dGigantizm > 0)
+            {
+                gens.pGigantizm -= 1;
+            }
+            if (gens.dEvisceration > 0)
+            {
+                gens.pEvisceration -= 1;
+            }
+            if (gens.dPedicellariy > 0)
+            {
+                gens.pPedicellariy -= 1;
+            }
+            if (gens.dPrisosky > 0)
+            {
+                gens.pPrisosky -= 1;
+            }
+            if (gens.dChernMeshok > 0)
+            {
+                gens.pChernMeshok -= 1;
+            }
+            if (gens.dCuvierovi > 0)
+            {
+                gens.pCuvierovi -= 1;
+            }
+            if (gens.dColloblasty > 0)
+            {
+                gens.pColloblasty -= 1;
+            }
+            if (gens.dCirri > 0)
+            {
+                gens.pCirri -= 1;
+            }
+            if (gens.dPlavniki > 0)
+            {
+                gens.pPlavniki -= 1;
+            }
+            if (gens.dImmunitet > 0)
+            {
+                gens.pImmunitet -= 1;
+            }
+            if (gens.dZuby > 0)
+            {
+                gens.pZuby -= 1;
+            }
+            if (gens.dDopPolost > 0)
+            {
+                gens.pDopPolost -= 1;
+            }
+            if (gens.dDopEnergia > 0)
+            {
+                gens.pDopEnergia -= 1;
+            }
+            if (gens.dPheromones > 0)
+            {
+                gens.pPheromones -= 1;
+            }
+            if (gens.dUskorennoeRazvitie > 0)
+            {
+                gens.pUskorennoeRazvitie -= 1;
+            }
+            if (gens.dMagnetic > 0)
+            {
+                gens.pMagnetic -= 1;
+            }
+            if (gens.pStatocyst < 0)
+            {
+                gens.pStatocyst = 0;
+            }
+            if (gens.pHydropora < 0)
+            {
+                gens.pHydropora = 0;
+            }
+            if (gens.pOsmolit < 0)
+            {
+                gens.pOsmolit = 0;
+            }
+            if (gens.pLipid < 0)
+            {
+                gens.pLipid = 0;
+            }
+            if (gens.pKrioprotector < 0)
+            {
+                gens.pKrioprotector = 0;
+            }
+            if (gens.pGigantizm < 0)
+            {
+                gens.pGigantizm = 0;
+            }
+            if (gens.pSliz < 0)
+            {
+                gens.pSliz = 0;
+            }
+            if (gens.pPancer < 0)
+            {
+                gens.pPancer = 0;
+            }
+            if (gens.pEcholocatia < 0)
+            {
+                gens.pEcholocatia = 0;
+            }
+            if (gens.pHemoreceptor < 0)
+            {
+                gens.pHemoreceptor = 0;
+            }
+            if (gens.pPhotoreceptor < 0)
+            {
+                gens.pPhotoreceptor = 0;
+            }
+            if (gens.pMechanoreceptor < 0)
+            {
+                gens.pMechanoreceptor = 0;
+            }
+            if (gens.pElectroreceptor < 0)
+            {
+                gens.pElectroreceptor = 0;
+            }
+            if (gens.pRedPigment < 0)
+            {
+                gens.pRedPigment = 0;
+            }
+            if (gens.pProzrachnost < 0)
+            {
+                gens.pProzrachnost = 0;
+            }
+            if (gens.pChernyyPigment < 0)
+            {
+                gens.pChernyyPigment = 0;
+            }
+            if (gens.pMimicria < 0)
+            {
+                gens.pMimicria = 0;
+            }
+            if (gens.pLuminiscencia < 0)
+            {
+                gens.pLuminiscencia = 0;
+            }
+            if (gens.pToxiny < 0)
+            {
+                gens.pToxiny = 0;
+            }
+            if (gens.pRegeneration < 0)
+            {
+                gens.pRegeneration = 0;
+            }
+            if (gens.pGigantizm < 0)
+            {
+                gens.pGigantizm = 0;
+            }
+            if (gens.pEvisceration < 0)
+            {
+                gens.pEvisceration = 0;
+            }
+            if (gens.pPedicellariy < 0)
+            {
+                gens.pPedicellariy = 0;
+            }
+            if (gens.pPrisosky < 0)
+            {
+                gens.pPrisosky = 0;
+            }
+            if (gens.pChernMeshok < 0)
+            {
+                gens.pChernMeshok = 0;
+            }
+            if (gens.pCuvierovi < 0)
+            {
+                gens.pCuvierovi = 0;
+            }
+            if (gens.pColloblasty < 0)
+            {
+                gens.pColloblasty = 0;
+            }
+            if (gens.pCirri < 0)
+            {
+                gens.pCirri = 0;
+            }
+            if (gens.pPlavniki < 0)
+            {
+                gens.pPlavniki = 0;
+            }
+            if (gens.pImmunitet < 0)
+            {
+                gens.pImmunitet = 0;
+            }
+            if (gens.pZuby < 0)
+            {
+                gens.pZuby = 0;
+            }
+            if (gens.pDopPolost < 0)
+            {
+                gens.pDopPolost = 0;
+            }
+            if (gens.pDopEnergia < 0)
+            {
+                gens.pDopEnergia = 0;
+            }
+            if (gens.pPheromones < 0)
+            {
+                gens.pPheromones = 0;
+            }
+            if (gens.pUskorennoeRazvitie < 0)
+            {
+                gens.pUskorennoeRazvitie = 0;
+            }
+            if (gens.pMagnetic < 0)
+            {
+                gens.pMagnetic = 0;
+            }
+            PlayerPrefs.SetFloat("pStatocyst", gens.pStatocyst);
+            PlayerPrefs.SetFloat("pHydropora", gens.pHydropora);
+            PlayerPrefs.SetFloat("pOsmolit", gens.pOsmolit);
+            PlayerPrefs.SetFloat("pLipid", gens.pLipid);
+            PlayerPrefs.SetFloat("pKrioprotector", gens.pKrioprotector);
+            PlayerPrefs.SetFloat("pGigantizm", gens.pGigantizm);
+            PlayerPrefs.SetFloat("pSliz", gens.pSliz);
+            PlayerPrefs.SetFloat("pPancer", gens.pPancer);
+            PlayerPrefs.SetFloat("pEcholocatia", gens.pEcholocatia);
+            PlayerPrefs.SetFloat("pHemoreceptor", gens.pHemoreceptor);
+            PlayerPrefs.SetFloat("pPhotoreceptor", gens.pPhotoreceptor);
+            PlayerPrefs.SetFloat("pMechanoreceptor", gens.pMechanoreceptor);
+            PlayerPrefs.SetFloat("pElectroreceptor", gens.pElectroreceptor);
+            PlayerPrefs.SetFloat("pRedPigment", gens.pRedPigment);
+            PlayerPrefs.SetFloat("pProzrachnost", gens.pProzrachnost);
+            PlayerPrefs.SetFloat("pChernyyPigment", gens.pChernyyPigment);
+            PlayerPrefs.SetFloat("pMimicria", gens.pMimicria);
+            PlayerPrefs.SetFloat("pLuminiscencia", gens.pLuminiscencia);
+            PlayerPrefs.SetFloat("pToxiny", gens.pToxiny);
+            PlayerPrefs.SetFloat("pRegeneration", gens.pRegeneration);
+            PlayerPrefs.SetFloat("pEvisceration", gens.pEvisceration);
+            PlayerPrefs.SetFloat("pPedicellariy", gens.pPedicellariy);
+            PlayerPrefs.SetFloat("pPrisosky", gens.pPrisosky);
+            PlayerPrefs.SetFloat("pChernMeshok", gens.pChernMeshok);
+            PlayerPrefs.SetFloat("pCuvierovi", gens.pCuvierovi);
+            PlayerPrefs.SetFloat("pColloblasty", gens.pColloblasty);
+            PlayerPrefs.SetFloat("pCirri", gens.pCirri);
+            PlayerPrefs.SetFloat("pPlavniki", gens.pPlavniki);
+            PlayerPrefs.SetFloat("pImmunitet", gens.pImmunitet);
+            PlayerPrefs.SetFloat("pZuby", gens.pZuby);
+            PlayerPrefs.SetFloat("pDopPolost", gens.pDopPolost);
+            PlayerPrefs.SetFloat("pDopEnergia", gens.pDopEnergia);
+            PlayerPrefs.SetFloat("pPheromones", gens.pPheromones);
+            PlayerPrefs.SetFloat("pDegradation", gens.pDegradation);
+            PlayerPrefs.SetFloat("pUskorennoeRazvitie", gens.pUskorennoeRazvitie);
+            PlayerPrefs.SetFloat("pMagnetic", gens.pMagnetic);
+            gens.dStatocyst = 0;
+            gens.dHydropora = 0;
+            gens.dOsmolit = 0;
+            gens.dLipid = 0;
+            gens.dKrioprotector = 0;
+            gens.dGigantizm = 0;
+            gens.dSliz = 0;
+            gens.dPancer = 0;
+            gens.dEcholocatia = 0;
+            gens.dHemoreceptor = 0;
+            gens.dPhotoreceptor = 0;
+            gens.dMechanoreceptor = 0;
+            gens.dElectroreceptor = 0;
+            gens.dRedPigment = 0;
+            gens.dProzrachnost = 0;
+            gens.dChernyyPigment = 0;
+            gens.dMimicria = 0;
+            gens.dLuminiscencia = 0;
+            gens.dToxiny = 0;
+            gens.dRegeneration = 0;
+            gens.dEvisceration = 0;
+            gens.dPedicellariy = 0;
+            gens.dPrisosky = 0;
+            gens.dChernMeshok = 0;
+            gens.dCuvierovi = 0;
+            gens.dColloblasty = 0;
+            gens.dCirri = 0;
+            gens.dPlavniki = 0;
+            gens.dImmunitet = 0;
+            gens.dZuby = 0;
+            gens.dDopPolost = 0;
+            gens.dDopEnergia = 0;
+            gens.dPheromones = 0;
+            gens.dDegradation = 0;
+            gens.dUskorennoeRazvitie = 0;
+            gens.dMagnetic = 0;
+
+            // включаем скиллы в колонке
+            skillet.slotListdostupni.Add(skillet.slotKolonka1);
+            skillet.slotListdostupni.Add(skillet.slotKolonka2);
+            skillet.slotListdostupni.Add(skillet.slotKolonka3);
+            skillet.slotListdostupni.Add(skillet.slotKolonka4);
+            skillet.slotListdostupni.Add(skillet.slotKolonka5);
+            skillet.slotListdostupni.Add(skillet.slotKolonka6);
+            skillet.slotListdostupni.Add(skillet.slotKolonka8);
+            skillet.slotListdostupni.Add(skillet.slotKolonka9);
+
+            if (gens.pRedPigment != 3)
+            {
+                skilchitalka.skil10.SetActive(false);
+                skilchitalka.skil11.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka10);
+                skillet.slotListdostupni.Add(skillet.slotKolonka11);
+            }
+            if (gens.pChernyyPigment != 3)
+            {
+                skilchitalka.skil13.SetActive(false);
+                skilchitalka.skil14.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka13);
+                skillet.slotListdostupni.Add(skillet.slotKolonka14);
+            }
+            if (gens.pProzrachnost != 3)
+            {
+                skilchitalka.skil12.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka12);
+            }
+            if (gens.pLuminiscencia != 3)
+            {
+                skilchitalka.skil15.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka15);
+            }
+            if (gens.pCirri != 3)
+            {
+                skilchitalka.skil16.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka16);
+            }
+            if (gens.pPedicellariy != 3)
+            {
+                skilchitalka.skil17.SetActive(false);
+                skilchitalka.skil18.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka17);
+                skillet.slotListdostupni.Add(skillet.slotKolonka18);
+            }
+            if (gens.pPrisosky != 3)
+            {
+                skilchitalka.skil19.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka19);
+            }
+            if (gens.pRegeneration != 3)
+            {
+                skilchitalka.skil20.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka20);
+            }
+            if (gens.pZuby != 3)
+            {
+                skilchitalka.skil21.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka21);
+            }
+            if (gens.pEvisceration != 3)
+            {
+                skilchitalka.skil22.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka22);
+            }
+            if (gens.pChernMeshok != 3)
+            {
+                skilchitalka.skil23.SetActive(false);
+                skilchitalka.skil24.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka23);
+                skillet.slotListdostupni.Add(skillet.slotKolonka24);
+            }
+            if (gens.pCuvierovi != 3)
+            {
+                skilchitalka.skil25.SetActive(false);
+                skilchitalka.skil26.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka25);
+                skillet.slotListdostupni.Add(skillet.slotKolonka26);
+            }
+            if (gens.pColloblasty != 3)
+            {
+                skilchitalka.skil27.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka27);
+            }
+            if (gens.pToxiny != 3)
+            {
+                skilchitalka.skil28.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka28);
+            }
+            if (gens.pPlavniki != 3)
+            {
+                skilchitalka.skil29.SetActive(false);
+            }
+            else
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka29);
+            }
+            if (gens.pZuby == 3 && gens.pEvisceration == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka30);
+            }
+            else
+            {
+                skilchitalka.skil30.SetActive(false);
+               
+            }
+            if (gens.pZuby == 3 && gens.pToxiny == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka31);
+                
+            }
+            else
+            {
+                skilchitalka.skil31.SetActive(false);
+            }
+            if (gens.pMechanoreceptor == 3 && gens.pEvisceration == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka32);
+            }
+            else
+            {
+                skilchitalka.skil32.SetActive(false);
+                
+            }
+            if (gens.pGigantizm == 3 && gens.pPlavniki == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka33);
+            }
+            else
+            {
+                skilchitalka.skil33.SetActive(false);
+                
+            }
+            if (gens.pColloblasty == 3 && gens.pCuvierovi == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka34);
+               
+            }
+            else
+            {
+                skilchitalka.skil34.SetActive(false);
+            }
+            if (gens.pColloblasty == 3 && gens.pImmunitet == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka35);
+            }
+            else
+            {
+                skilchitalka.skil35.SetActive(false);
+                
+            }
+            if (gens.pRedPigment == 3 && gens.pImmunitet == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka36);
+            }
+            else
+            {
+                skilchitalka.skil36.SetActive(false);
+               
+            }
+            if (gens.pPheromones == 3 && gens.pLuminiscencia == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka37);
+            }
+            else
+            {
+                skilchitalka.skil37.SetActive(false);
+                
+            }
+            if (gens.pSliz == 3 && gens.pLuminiscencia == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka38);
+            }
+            else
+            {
+                skilchitalka.skil38.SetActive(false);
+                
+            }
+            if (gens.pProzrachnost == 3 && gens.pLuminiscencia == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka39);
+            }
+            else
+            {
+                skilchitalka.skil39.SetActive(false);
+               
+            }
+            if (gens.pChernyyPigment == 3 && gens.pChernMeshok == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka40);
+            }
+            else
+            {
+                skilchitalka.skil40.SetActive(false);
+                
+            }
+            if (gens.pCirri == 3 && gens.pRegeneration == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka41);
+            }
+            else
+            {
+                skilchitalka.skil41.SetActive(false);
+
+            }
+            if (gens.pPrisosky == 3 && gens.pMimicria == 3)
+            {
+
+                skillet.slotListdostupni.Add(skillet.slotKolonka42);
+            }
+            else
+            {
+                skilchitalka.skil42.SetActive(false);
+            }
+            if (gens.pPedicellariy == 3 && gens.pUskorennoeRazvitie == 3)
+            {
+                skillet.slotListdostupni.Add(skillet.slotKolonka43);
+            }
+            else
+            {
+                skilchitalka.skil43.SetActive(false);
+            }
+
+            foreach (GameObject temporObject in skillet.slotListdostupni)
+            {
+                temporObject.SetActive(false);
+            }
+            // а это сортировка раз и навсегда
+            foreach (Transform child in skillet.slotMother.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+
+            PlayerPrefs.SetFloat("dStatocyst", gens.dStatocyst);
+            PlayerPrefs.SetFloat("dHydropora", gens.dHydropora);
+            PlayerPrefs.SetFloat("dOsmolit", gens.dOsmolit);
+            PlayerPrefs.SetFloat("dLipid", gens.dLipid);
+            PlayerPrefs.SetFloat("dKrioprotector", gens.dKrioprotector);
+            PlayerPrefs.SetFloat("dGigantizm", gens.dGigantizm);
+            PlayerPrefs.SetFloat("dSliz", gens.dSliz);
+            PlayerPrefs.SetFloat("dPancer", gens.dPancer);
+            PlayerPrefs.SetFloat("dEcholocatia", gens.dEcholocatia);
+            PlayerPrefs.SetFloat("dHemoreceptor", gens.dHemoreceptor);
+            PlayerPrefs.SetFloat("dPhotoreceptor", gens.dPhotoreceptor);
+            PlayerPrefs.SetFloat("dMechanoreceptor", gens.dMechanoreceptor);
+            PlayerPrefs.SetFloat("dElectroreceptor", gens.dElectroreceptor);
+            PlayerPrefs.SetFloat("dRedPigment", gens.dRedPigment);
+            PlayerPrefs.SetFloat("dProzrachnost", gens.dProzrachnost);
+            PlayerPrefs.SetFloat("dChernyyPigment", gens.dChernyyPigment);
+            PlayerPrefs.SetFloat("dMimicria", gens.dMimicria);
+            PlayerPrefs.SetFloat("dLuminiscencia", gens.dLuminiscencia);
+            PlayerPrefs.SetFloat("dToxiny", gens.dToxiny);
+            PlayerPrefs.SetFloat("dRegeneration", gens.dRegeneration);
+            PlayerPrefs.SetFloat("dEvisceration", gens.dEvisceration);
+            PlayerPrefs.SetFloat("dPedicellariy", gens.dPedicellariy);
+            PlayerPrefs.SetFloat("dPrisosky", gens.dPrisosky);
+            PlayerPrefs.SetFloat("dChernMeshok", gens.dChernMeshok);
+            PlayerPrefs.SetFloat("dCuvierovi", gens.dCuvierovi);
+            PlayerPrefs.SetFloat("dColloblasty", gens.dColloblasty);
+            PlayerPrefs.SetFloat("dCirri", gens.dCirri);
+            PlayerPrefs.SetFloat("dPlavniki", gens.dPlavniki);
+            PlayerPrefs.SetFloat("dImmunitet", gens.dImmunitet);
+            PlayerPrefs.SetFloat("dZuby", gens.dZuby);
+            PlayerPrefs.SetFloat("dDopPolost", gens.dDopPolost);
+            PlayerPrefs.SetFloat("dDopEnergia", gens.dDopEnergia);
+            PlayerPrefs.SetFloat("dPheromones", gens.dPheromones);
+            PlayerPrefs.SetFloat("dDegradation", gens.dDegradation);
+            PlayerPrefs.SetFloat("dUskorennoeRazvitie", gens.dUskorennoeRazvitie);
+            PlayerPrefs.SetFloat("dMagnetic", gens.dMagnetic);
+            PlayerPrefs.Save();
+            // меняет внешность
+
+            // откл всего, поворот
+
+        }
+        
+        if (distancePoints.distance >= 5060 && justoncepokazhi == false)
+        {
+            justoncepokazhi = true;
+            anime.nekpart.SetActive(false);
+            foreach (Transform child in anime.headpart.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in anime.bedrapart.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in anime.chestpart.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in anime.bellypart.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in anime.legspart.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in anime.armpart.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in anime.shouldpart.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in anime.armpart2.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in anime.shouldpart2.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            anime.headstart.SetActive(true);
+            anime.headpart.transform.localPosition = new Vector2(-0.1f, 4.8f);
+            potribnarotatia = new Vector3(0f, 0f, 180f);
+            anime.headpart.transform.eulerAngles = potribnarotatia;
+            anime.fullbody.transform.eulerAngles = potribnarotatia;
+
+            // зависимо от глаз
+            if (gens.pPhotoreceptor <= 1)
+            {
+                anime.eyestart1.SetActive(true);
+            }
+            else if (gens.pPhotoreceptor == 2)
+            {
+                anime.eyestart2.SetActive(true);
+            }
+            else if (gens.pPhotoreceptor == 3)
+            {
+                anime.eyestart3.SetActive(true);
+            }
+            anime.chestswim.SetActive(true);
+            anime.bellyswim.SetActive(true);
+            anime.bedraswim.SetActive(true);
+
+            anime.leftshswim.SetActive(true);
+            anime.rightshswim.SetActive(true);
+
+            // зависимо от конечностей
+            if (gens.pPedicellariy == 0)
+            {
+                anime.leftarmswim.SetActive(true);
+            }
+            else if (gens.pPedicellariy == 1)
+            {
+                anime.leftarmswimpedic1.SetActive(true);
+            }
+            else if (gens.pPedicellariy == 2)
+            {
+                anime.leftarmswimpedic2.SetActive(true);
+            }
+            else if (gens.pPedicellariy == 3)
+            {
+                anime.leftarmswimpedic3.SetActive(true);
+            }
+            if (gens.pCirri == 0)
+            {
+                anime.rightarmswim.SetActive(true);
+            }
+            else if (gens.pCirri == 1)
+            {
+                anime.rightarmswimcirr1.SetActive(true);
+            }
+            else if (gens.pCirri == 2)
+            {
+                anime.rightarmswimcirr2.SetActive(true);
+            }
+            else if (gens.pCirri == 3)
+            {
+                anime.rightarmswimcirr3.SetActive(true);
+            }
+            if (gens.pPlavniki == 0)
+            {
+                anime.legsswim.SetActive(true);
+
+            }
+            else if (gens.pPlavniki == 1 || gens.pPlavniki == 2)
+            {
+                anime.legsswimfins12.SetActive(true);
+            }
+            else if (gens.pPlavniki == 3)
+            {
+                anime.legsswimfins3.SetActive(true);
+            }
+
+            if (gens.pElectroreceptor == 1)
+            {
+                anime.electrobashka1.SetActive(true);
+            }
+            else if (gens.pElectroreceptor > 1)
+            {
+                anime.electrobashka123.SetActive(true);
+            }
+            if (gens.pHydropora == 3)
+            {
+                anime.hydroorbaska.SetActive(true);
+            }
+
+            if (gens.pHemoreceptor == 1)
+            {
+                anime.hemobaska1.SetActive(true);
+            }
+            else if (gens.pHemoreceptor == 2)
+            {
+                anime.hemobaska2.SetActive(true);
+            }
+            else if (gens.pHemoreceptor == 3)
+            {
+                anime.hemobaska3swim.SetActive(true);
+            }
+            if (gens.pMechanoreceptor == 1)
+            {
+                anime.mechabaska1.SetActive(true);
+            }
+            else if (gens.pMechanoreceptor == 2)
+            {
+                anime.mechabaska2.SetActive(true);
+            }
+            else if (gens.pMechanoreceptor == 3)
+            {
+                anime.mechabaska3.SetActive(true);
+            }
+            if (gens.pPancer == 1)
+            {
+                anime.headpancer12.SetActive(true);
+            }
+            else if (gens.pPancer > 1)
+            {
+                anime.headpancer3.SetActive(true);
+            }
+            if (gens.pZuby == 1)
+            {
+                anime.zuby1.SetActive(true);
+            }
+            else if (gens.pZuby == 2)
+            {
+                anime.zuby2.SetActive(true);
+            }
+            else if (gens.pZuby == 3)
+            {
+                anime.zuby3.SetActive(true);
+            }
+            if (gens.pSliz == 1)
+            {
+                anime.sliz1.SetActive(true);
+            }
+            else if (gens.pSliz == 2)
+            {
+                anime.sliz2.SetActive(true);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.sliz3.SetActive(true);
+            }
+            if (gens.pLuminiscencia == 1)
+            {
+                anime.lumini1.SetActive(true);
+            }
+            else if (gens.pLuminiscencia == 2)
+            {
+                anime.lumini2.SetActive(true);
+            }
+            else if (gens.pLuminiscencia == 3)
+            {
+                anime.lumini3.SetActive(true);
+            }
+
+            // тело, заплыв
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.chestpancer12.SetActive(true);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.chestpancer3.SetActive(true);
+            }
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.chestsliz12.SetActive(true);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.chestsliz3.SetActive(true);
+            }
+            if (gens.pMechanoreceptor == 1 || gens.pMechanoreceptor == 2)
+            {
+                anime.chestmechano12.SetActive(true);
+            }
+            else if (gens.pMechanoreceptor == 3)
+            {
+                anime.chestmechano3.SetActive(true);
+            }
+
+            // пузо, заплыв
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.bellypancer12.SetActive(true);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.bellypancer3.SetActive(true);
+            }
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.bellysliz12.SetActive(true);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.bellysliz3.SetActive(true);
+            }
+            if (gens.pMechanoreceptor == 3)
+            {
+                anime.bellymechano3.SetActive(true);
+            }
+
+            // бедра, заплыв
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.bedrapancer12.SetActive(true);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.bedrapancer3.SetActive(true);
+            }
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.bedrasliz12.SetActive(true);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.bedrasliz3.SetActive(true);
+            }
+            if (gens.pPlavniki == 1 || gens.pPlavniki == 2)
+            {
+                anime.bedrafins12.SetActive(true);
+            }
+            else if (gens.pPlavniki == 3)
+            {
+                anime.bedrafins3.SetActive(true);
+            }
+
+            // щупальца, заплыв
+            if (gens.pPrisosky == 2)
+            {
+                anime.prisoski2.SetActive(true);
+                anime.prisoski2left.SetActive(true);
+            }
+            else if (gens.pPrisosky == 3)
+            {
+                anime.prisoski3.SetActive(true);
+                anime.prisoski3left.SetActive(true);
+            }
+            // плечи заплыв
+            if (gens.pPancer == 1 || gens.pPancer == 2)
+            {
+                anime.shoulderpancer12.SetActive(true);
+                anime.rightshoulderpancer12.SetActive(true);
+            }
+            else if (gens.pPancer == 3)
+            {
+                anime.shoulderpancer3.SetActive(true);
+                anime.rightshoulderpancer3.SetActive(true);
+            }
+            if (gens.pSliz == 1 || gens.pSliz == 2)
+            {
+                anime.shouldersliz12.SetActive(true);
+                anime.rightshouldersliz12.SetActive(true);
+            }
+            else if (gens.pSliz == 3)
+            {
+                anime.shouldersliz3.SetActive(true);
+                anime.rightshouldersliz3.SetActive(true);
+            }
+            if (gens.pPlavniki == 3)
+            {
+                anime.shoulderfins3.SetActive(true);
+                anime.rightshoulderfins3.SetActive(true);
+            }
+
+            if (gens.pDopPolost == 1)
+            {
+                anime.polost1.SetActive(true);
+            }
+            else if (gens.pDopPolost == 2)
+            {
+                anime.polost2.SetActive(true);
+            }
+            else if (gens.pDopPolost == 3)
+            {
+                anime.polost3.SetActive(true);
+            }
+            if (gens.pDopEnergia == 1)
+            {
+                anime.zhir1.SetActive(true);
+            }
+            else if (gens.pDopEnergia == 2)
+            {
+                anime.zhir2.SetActive(true);
+            }
+            else if (gens.pDopEnergia == 3)
+            {
+                anime.zhir3.SetActive(true);
+            }
+
+            Color32 ggcolor = new Color32(255, 255, 255, 255);
+
+            if (gens.pRedPigment == 1)
+            {
+                ggcolor = new Color32(150, 95, 96, 255);
+                ggcolorfortransp = new Color32(150, 95, 96, 255);
+                if (gens.pChernyyPigment == 1)
+                {
+                    colorEnd = new Color32(153, 153, 153, 255);
+                }
+                else if (gens.pChernyyPigment == 2)
+                {
+                    colorEnd = new Color32(64, 64, 64, 255);
+                }
+                else if (gens.pChernyyPigment == 3)
+                {
+                    colorEnd = new Color32(39, 39, 39, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pChernyyPigment == 1)
+            {
+                ggcolor = new Color32(153, 153, 153, 255);
+                ggcolorfortransp = new Color32(153, 153, 153, 255);
+                if (gens.pRedPigment == 1)
+                {
+                    colorEnd = new Color32(150, 95, 96, 255);
+                }
+                else if (gens.pRedPigment == 2)
+                {
+                    colorEnd = new Color32(165, 24, 26, 255);
+                }
+                else if (gens.pRedPigment == 3)
+                {
+                    colorEnd = new Color32(114, 15, 16, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pRedPigment == 2)
+            {
+                ggcolor = new Color32(165, 24, 26, 255);
+                ggcolorfortransp = new Color32(165, 24, 26, 255);
+                if (gens.pChernyyPigment == 1)
+                {
+                    colorEnd = new Color32(153, 153, 153, 255);
+                }
+                else if (gens.pChernyyPigment == 2)
+                {
+                    colorEnd = new Color32(64, 64, 64, 255);
+                }
+                else if (gens.pChernyyPigment == 3)
+                {
+                    colorEnd = new Color32(39, 39, 39, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pChernyyPigment == 2)
+            {
+                ggcolor = new Color32(64, 64, 64, 255);
+                ggcolorfortransp = new Color32(64, 64, 64, 255);
+                if (gens.pRedPigment == 1)
+                {
+                    colorEnd = new Color32(150, 95, 96, 255);
+                }
+                else if (gens.pRedPigment == 2)
+                {
+                    colorEnd = new Color32(165, 24, 26, 255);
+                }
+                else if (gens.pRedPigment == 3)
+                {
+                    colorEnd = new Color32(114, 15, 16, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pRedPigment == 3)
+            {
+                ggcolor = new Color32(114, 15, 16, 255);
+                ggcolorfortransp = new Color32(114, 15, 16, 255);
+                if (gens.pChernyyPigment == 1)
+                {
+                    colorEnd = new Color32(153, 153, 153, 255);
+                }
+                else if (gens.pChernyyPigment == 2)
+                {
+                    colorEnd = new Color32(64, 64, 64, 255);
+                }
+                else if (gens.pChernyyPigment == 3)
+                {
+                    colorEnd = new Color32(39, 39, 39, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pChernyyPigment == 3)
+            {
+                ggcolor = new Color32(39, 39, 39, 255);
+                ggcolorfortransp = new Color32(39, 39, 39, 255);
+                if (gens.pRedPigment == 1)
+                {
+                    colorEnd = new Color32(150, 95, 96, 255);
+                }
+                else if (gens.pRedPigment == 2)
+                {
+                    colorEnd = new Color32(165, 24, 26, 255);
+                }
+                else if (gens.pRedPigment == 3)
+                {
+                    colorEnd = new Color32(114, 15, 16, 255);
+                }
+                else
+                {
+                    colorEnd = new Color32(255, 255, 255, 255);
+                }
+            }
+            if (gens.pMimicria >= 1)
+            {
+                colorStart = ggcolor;
+
+            }
+
+
+            foreach (Renderer tempObject in anime.renderList)
+            {
+                tempObject.material.color = ggcolor;
+            }
+
+            if (gens.pProzrachnost == 3)
+            {
+                ggcolorfortransp.a = 200;
+            }
+            else if (gens.pProzrachnost == 2)
+            {
+                ggcolorfortransp.a = 220;
+            }
+            else if (gens.pProzrachnost == 1)
+            {
+                ggcolorfortransp.a = 240;
+            }
+            else
+            {
+                ggcolorfortransp.a = 255;
+            }
+
+            foreach (Renderer tempObject in anime.renderListProzrachno)
+            {
+                tempObject.material.color = ggcolorfortransp;
+            }
+
+            Destroy(GameObject.FindWithTag("Dead"));
+        }
+        if (distancePoints.distance >= 5100 && justonce2 == false && skillet.skillotkriti == false) // и еще ни разу не открыт?
+        {
+            justonce2 = true;
+            // skillet.tapSkillsOnlyOn();
+        }
+
+        if (justonce2 && skillet.slotList.Count == 2 && skillet.skillsBack.activeSelf == false && batolfinal.moskcolorchange == false) // если нет открытых слотов и была проверка
+        {
+            skillsknopablesk.SetActive(true);
+        }
+        else if(skillet.slotList.Count != 2 || skillet.skillsBack.activeSelf == true || batolfinal.moskcolorchange)
+        {
+            skillsknopablesk.SetActive(false);
+        }
+
+
+    }
+
+    public void nepodgotovlennyyIgrok()
+    {
+        player.speed = 0f;
+        obuchregul.podskgenes.SetActive(true);
+    }
+
+    // предупреждает, что неиспользованные р будут утеряны, если игрок начал двигаться
+
+}
