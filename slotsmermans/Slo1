@@ -1,0 +1,210 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Slo1 : MonoBehaviour
+{
+    public DistanceToCheckpoint distancePoints;
+    public BattleScreen battleModeVisibility;
+    public PlayerController player;
+    public SkillsController skills;
+
+    public GameObject vragslotus;
+
+    [SerializeField]
+    public GameObject slo1;
+    public GameObject slo2;
+    public GameObject slo3;
+    public GameObject slo4;
+    public GameObject slo5;
+    public GameObject slo6;
+    public GameObject slo7;
+    public GameObject slo8;
+    public GameObject slo9;
+    public GameObject sloBlokers;
+    public GameObject slo1blocked;
+    public GameObject slo2blocked;
+    public GameObject slo3blocked;
+    public GameObject slo4blocked;
+    public GameObject slo5blocked;
+    public GameObject slo6blocked;
+    public GameObject slo7blocked;
+    public GameObject slo8blocked;
+    public GameObject slo9blocked;
+    public float slo1Hp;
+    public float slo2Hp;
+    public float slo3Hp;
+    public float slo4Hp;
+    public float slo5Hp;
+    public float slo6Hp;
+    public float slo7Hp;
+    public float slo8Hp;
+    public float slo9Hp;
+
+
+    public float blockpossibility5;
+    public float blockpossibility7;
+    public float blockpossibility6;
+    public float blockpossibility8;
+    public float blockpossibility9;
+    public float blockpossibility4;
+
+    void Start()
+    {
+        blockpossibility5 = 2;
+        blockpossibility7 = 2;
+        blockpossibility6 = 2;
+        blockpossibility8 = 2;
+        blockpossibility9 = 2;
+        blockpossibility4 = 2;
+        sloBlokers.SetActive(false);
+        slo1.SetActive(false);
+        slo1blocked.SetActive(false);
+        slo1Hp = 0f;
+        slo2.SetActive(false);
+        slo2blocked.SetActive(false);
+        slo2Hp = 0f;
+        slo3.SetActive(false);
+        slo3blocked.SetActive(false);
+        slo3Hp = 0f;
+        slo4.SetActive(false);
+        slo4blocked.SetActive(false);
+        slo4Hp = 0f;
+        slo5.SetActive(false);
+        slo5blocked.SetActive(false);
+        slo5Hp = 0f;
+        slo6.SetActive(false);
+        slo6blocked.SetActive(false);
+        slo6Hp = 0f;
+        slo7.SetActive(false);
+        slo7blocked.SetActive(false);
+        slo7Hp = 0f;
+        slo8.SetActive(false);
+        slo8blocked.SetActive(false);
+        slo8Hp = 0f;
+        slo9.SetActive(false);
+        slo9blocked.SetActive(false);
+        slo9Hp = 0f;
+    }
+
+    void Update()
+    {
+        // Слоты активируются, когда магазин, блокеры тоже
+        if (skills.skillsBack.activeSelf == true)
+        {
+            slo1.SetActive(true);
+            slo2.SetActive(true);
+            slo3.SetActive(true);
+            slo4.SetActive(true);
+            slo5.SetActive(true);
+            slo6.SetActive(true);
+            slo7.SetActive(true);
+            slo8.SetActive(true);
+            slo9.SetActive(true);
+            if (distancePoints.distance < 12030)
+            {
+                sloBlokers.SetActive(true);
+            }
+        }
+
+        // Слоты активируются, когда боевые позиции
+        // выезжают с -720 до 0
+        else if (battleModeVisibility.battleMode == true && player.transform.position.x < 52)
+        {
+            if (distancePoints.distance < 12030)
+            {
+                sloBlokers.SetActive(true);
+            }
+            slo1.SetActive(true);
+            slo2.SetActive(true);
+            slo3.SetActive(true);
+            slo4.SetActive(true);
+            slo5.SetActive(true);
+            slo6.SetActive(true);
+            slo7.SetActive(true);
+            slo8.SetActive(true);
+            slo9.SetActive(true);
+            
+        }
+        else
+        {
+            slo1.SetActive(false);
+            slo2.SetActive(false);
+            slo3.SetActive(false);
+            slo4.SetActive(false);
+            slo5.SetActive(false);
+            slo6.SetActive(false);
+            slo7.SetActive(false);
+            slo8.SetActive(false);
+            slo9.SetActive(false);
+            sloBlokers.SetActive(false);
+        }
+
+        // мониторинг блоков слотов зависимо от дистанции и вспомогательных генов
+        if (distancePoints.distance < 12030)
+        {
+            if (distancePoints.distance >= 5600 && blockpossibility9 > 1)
+            {
+                slo9blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 6000 && blockpossibility8 > 1)
+            {
+                slo8blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 6300 && blockpossibility7 > 1)
+            {
+                slo7blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 6650 && blockpossibility6 > 1)
+            {
+                slo6blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 6800 && blockpossibility5 > 1)
+            {
+                slo5blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 7000 && blockpossibility4 > 1)
+            {
+                slo4blocked.SetActive(true);
+            }
+
+            if (distancePoints.distance >= 6300 && blockpossibility9 > 0)
+            {
+                slo9blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 8000 && blockpossibility8 > 0)
+            {
+                slo8blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 8470 && blockpossibility7 > 0)
+            {
+                slo7blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 9000 && blockpossibility6 > 0)
+            {
+                slo6blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 9500 && blockpossibility5 > 0)
+            {
+                slo5blocked.SetActive(true);
+            }
+            if (distancePoints.distance >= 10000 && blockpossibility4 > 0)
+            {
+                slo4blocked.SetActive(true);
+            }
+        }
+        else
+        { 
+            slo1blocked.SetActive(false);
+            slo2blocked.SetActive(false);
+            slo3blocked.SetActive(false);
+            slo4blocked.SetActive(false);
+            slo5blocked.SetActive(false);
+            slo6blocked.SetActive(false);
+            slo7blocked.SetActive(false);
+            slo8blocked.SetActive(false);
+            slo9blocked.SetActive(false);
+        }
+    }
+}
